@@ -1,6 +1,7 @@
 package com.blockingHD;
 
 import com.blockingHD.commands.TestCommands;
+import com.blockingHD.database.CookieDatabase;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.exception.IrcException;
@@ -14,9 +15,7 @@ import static com.blockingHD.Referance.*;
  */
 public class CookieBotMain {
 
-    public static void main(String[] args){
-        new CookieBotMain();
-    }
+    private static  final CookieDatabase db = new CookieDatabase();
 
     Configuration<PircBotX> twitch = new Configuration.Builder<PircBotX>()
             .setName(NAME)
@@ -29,6 +28,7 @@ public class CookieBotMain {
             .addListener(new TestCommands())
             .buildConfiguration();
 
+
     public CookieBotMain(){
         PircBotX bot = new PircBotX(twitch);
         try {
@@ -36,5 +36,9 @@ public class CookieBotMain {
         } catch (IOException | IrcException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args){
+        new CookieBotMain();
     }
 }
