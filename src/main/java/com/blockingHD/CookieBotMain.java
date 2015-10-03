@@ -1,5 +1,6 @@
 package com.blockingHD;
 
+import com.blockingHD.commands.TestCommands;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.exception.IrcException;
@@ -25,6 +26,7 @@ public class CookieBotMain {
             .setServerHostname(HOST)
             .setServerPort(PORT)
             .addAutoJoinChannel(CHAN)
+            .addListener(new TestCommands())
             .buildConfiguration();
 
     public CookieBotMain(){
