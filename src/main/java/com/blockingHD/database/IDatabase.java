@@ -9,9 +9,9 @@ import java.util.List;
  */
 public interface IDatabase<T> {
 
-    public List<T> executeSQLStatement(PreparedStatement preparedStatement);
+    List<T> executeSQLStatement(PreparedStatement preparedStatement);
 
-    public void executeSQLUpdate(PreparedStatement preparedStatement);
+    void executeSQLUpdate(PreparedStatement preparedStatement);
 
-    public Connection getConnection();
+    Connection getConnection();
 }
