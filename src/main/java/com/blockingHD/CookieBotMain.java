@@ -1,7 +1,9 @@
 package com.blockingHD;
 
 import com.blockingHD.commands.TestCommands;
+import com.blockingHD.database.CookieDataBaseManipulator;
 import com.blockingHD.database.CookieDatabase;
+import com.blockingHD.games.guess;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.exception.IrcException;
@@ -15,7 +17,8 @@ import static com.blockingHD.Referance.*;
  */
 public class CookieBotMain {
 
-    private static  final CookieDatabase db = new CookieDatabase();
+    public static final CookieDatabase DB = new CookieDatabase();
+    public static final CookieDataBaseManipulator CDBM = new CookieDataBaseManipulator(DB);
 
     Configuration<PircBotX> twitch = new Configuration.Builder<PircBotX>()
             .setName(NAME)
@@ -26,6 +29,7 @@ public class CookieBotMain {
             .setServerPort(PORT)
             .addAutoJoinChannel(CHAN)
             .addListener(new TestCommands())
+            .addListener(new guess())
             .buildConfiguration();
 
 
