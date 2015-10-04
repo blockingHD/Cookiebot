@@ -3,6 +3,7 @@ package com.blockingHD;
 import com.blockingHD.commands.TestCommands;
 import com.blockingHD.database.CookieDataBaseManipulator;
 import com.blockingHD.database.CookieDatabase;
+import com.blockingHD.games.guess;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.exception.IrcException;
@@ -28,6 +29,7 @@ public class CookieBotMain {
             .setServerPort(PORT)
             .addAutoJoinChannel(CHAN)
             .addListener(new TestCommands())
+            .addListener(new guess())
             .buildConfiguration();
 
 
