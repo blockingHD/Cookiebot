@@ -1,11 +1,13 @@
 package com.blockingHD.database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by MrKickkiller on 3/10/2015.
+ * Mimics the database itself
+ * Use @executeSQLStatement to manipulate the database
  */
 public class CookieDatabase implements AutoCloseable, IDatabase{
 
@@ -38,6 +40,42 @@ public class CookieDatabase implements AutoCloseable, IDatabase{
         }
     }
 
+    @Override
+    public List<StreamViewer> executeSQLStatement(PreparedStatement preparedStatement) {
+        List<StreamViewer> output = new ArrayList<>();
+        try {
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+                StreamViewer sv = new StreamViewer(rs.getString("username"));
+                if (rs.getInt("modstatus") == 0){
+                    sv.setModStatus(false);
+                }else {
+                    sv.setModStatus(true);
+                }
+                sv.setCookieCount(rs.getInt("cookies"));
+                output.add(sv);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return output;
+    }
+
+    @Override
+    public void executeSQLUpdate(PreparedStatement preparedStatement) {
+        try {
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public Connection getConnection() {
+        return conn;
+    }
 
     //<editor-fold desc="Cleanup code: Memory leak-prevention">
 
