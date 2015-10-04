@@ -7,9 +7,9 @@ import java.util.List;
 /**
  * Created by MrKickkiller on 4/10/2015.
  */
-public interface IDatabase {
+public interface IDatabase<T> {
 
-    public List<StreamViewer> executeSQLStatement(PreparedStatement preparedStatement);
+    public List<T> executeSQLStatement(PreparedStatement preparedStatement);
 
     public void executeSQLUpdate(PreparedStatement preparedStatement);
 

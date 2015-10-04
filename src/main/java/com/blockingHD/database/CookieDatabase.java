@@ -9,7 +9,7 @@ import java.util.List;
  * Mimics the database itself
  * Use @executeSQLStatement to manipulate the database
  */
-public class CookieDatabase implements AutoCloseable, IDatabase{
+public class CookieDatabase implements AutoCloseable, IDatabase<StreamViewer>{
 
     Connection conn;
 
