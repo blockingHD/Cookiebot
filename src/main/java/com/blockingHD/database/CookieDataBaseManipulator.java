@@ -19,6 +19,9 @@ public class CookieDataBaseManipulator {
         this.database = database;
     }
 
+    /*
+    * Get the amount of cookies a person has from the database.
+     */
     public int getCookieAmountForPerson(String username){
         Connection conn = database.getConnection();
         username = username.trim();
@@ -33,6 +36,9 @@ public class CookieDataBaseManipulator {
         throw new InvalidParameterException("Couldn't find user in database");
     }
 
+    /*
+    * Get the modstatus from a specific user.
+     */
     public boolean getModStatusForPerson(String username){
         Connection conn = database.getConnection();
         username = username.trim();
@@ -47,6 +53,9 @@ public class CookieDataBaseManipulator {
         throw new InvalidParameterException("Couldn't find user in database");
     }
 
+    /*
+    * Check if the person's name is already recorded in the database.
+     */
     public boolean isPersonAlreadyInDatabase(String username){
         Connection conn = database.getConnection();
         username = username.trim();
@@ -59,5 +68,4 @@ public class CookieDataBaseManipulator {
         }
         return false;
     }
-
 }

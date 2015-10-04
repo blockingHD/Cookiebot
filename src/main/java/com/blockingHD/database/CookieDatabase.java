@@ -40,6 +40,10 @@ public class CookieDatabase implements AutoCloseable, IDatabase<StreamViewer>{
         }
     }
 
+    /*
+    * Used to gather information out of the database.
+    * PreparedStatement should return a ResultSet.
+     */
     @Override
     public List<StreamViewer> executeSQLStatement(PreparedStatement preparedStatement) {
         List<StreamViewer> output = new ArrayList<>();
@@ -56,13 +60,17 @@ public class CookieDatabase implements AutoCloseable, IDatabase<StreamViewer>{
                 sv.setCookieCount(rs.getInt("cookies"));
                 output.add(sv);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return output;
     }
 
+
+    /*
+    * Used to update items in the database.
+    * PreparedStatement shall not return a ResultSet.
+     */
     @Override
     public void executeSQLUpdate(PreparedStatement preparedStatement) {
         try {
