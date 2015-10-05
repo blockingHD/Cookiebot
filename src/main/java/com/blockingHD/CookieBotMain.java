@@ -1,5 +1,6 @@
 package com.blockingHD;
 
+import com.blockingHD.commands.ModCommands;
 import com.blockingHD.commands.UserCommands;
 import com.blockingHD.database.CookieDataBaseManipulator;
 import com.blockingHD.database.CookieDatabase;
@@ -30,6 +31,7 @@ public class CookieBotMain {
             .addAutoJoinChannel(CHAN)
             .addListener(new UserCommands())
             .addListener(new guess())
+            .addListener(new ModCommands())
             .buildConfiguration();
 
 

@@ -15,11 +15,21 @@ public class ModCommands extends ListenerAdapter<PircBotX> {
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
         String username = event.getUser().getNick();
         String message = event.getMessage();
-        if (CDBM.getModStatusForPerson(username)){
-            if (message.equalsIgnoreCase("!mod")){
+        if (CDBM.getModStatusForPerson(username)) {
+            if (message.contains("!mod")) {
                 String target = message.replace("!mod", "").trim();
-                CDBM.updateModStatus(username, true);
-                event.getChannel().send().message(".w blockinghd " + username + " has moded" + target);
+                if (CDBM.isPersonAlreadyInDatabase(target)) {
+                    CDBM.updateModStatus(target, true);
+                    event.getChannel().send().message(username + " has moded " + target);
+                }
+            }
+
+            if (message.contains("!unmod")) {
+                String target = message.replace("!unmod", "").trim();
+                if (CDBM.isPersonAlreadyInDatabase(target) && !username.equals(target)){
+                    CDBM.updateModStatus(target, false);
+                    event.getChannel().send().message(username + " has unmoded " + target);
+                }
             }
         }
     }
