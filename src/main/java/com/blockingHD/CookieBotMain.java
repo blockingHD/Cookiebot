@@ -30,6 +30,7 @@ public class CookieBotMain {
             .addAutoJoinChannel(CHAN)
             .addListener(new TestCommands())
             .addListener(new guess())
+            .addListener(new DatabaseUpdater())
             .buildConfiguration();
 
 
@@ -44,5 +45,9 @@ public class CookieBotMain {
 
     public static void main(String[] args){
         new CookieBotMain();
+    }
+
+    public static void printStaticMessageToAuthors(){
+        System.out.println("Notify MrKickkiller or BlockingHD this happened.");
     }
 }

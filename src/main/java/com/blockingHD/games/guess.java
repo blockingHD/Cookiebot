@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class guess extends ListenerAdapter<PircBotX> {
 
-    int rand = 0;
+    int rand = new Random().nextInt(30);
     boolean isDone;
     List<String> users = new ArrayList<String>();
 
@@ -29,7 +29,7 @@ public class guess extends ListenerAdapter<PircBotX> {
             isDone = false;
             event.getChannel().send().message("A new round of cookie-guessing has begon. Get to them before Loneztar does!");
 
-        }else if (!CookieBotMain.CDBM.getModStatusForPerson(username)&& event.getMessage().toLowerCase().contains("!resetguess")){
+        }else if (event.getMessage().toLowerCase().contains("!resetguess") && CookieBotMain.CDBM.isPersonAlreadyInDatabase(username.trim()) && !CookieBotMain.CDBM.getModStatusForPerson(username)){
             event.getChannel().send().message("Nice try " + username + ", but better luck next time!");
         } else if (event.getMessage().toLowerCase().contains("!guess")){
             String guess = event.getMessage().replace("!guess ", "");

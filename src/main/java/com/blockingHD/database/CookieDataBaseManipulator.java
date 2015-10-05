@@ -1,6 +1,9 @@
 package com.blockingHD.database;
 
-import java.security.InvalidParameterException;
+import com.blockingHD.CookieBotMain;
+import com.blockingHD.exceptions.OutOfCookieException;
+import com.blockingHD.exceptions.UserNotFoundException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -31,7 +34,7 @@ public class CookieDataBaseManipulator {
     /*
     * Get the amount of cookies a person has from the database.
      */
-    public int getCookieAmountForPerson(String username){
+    public int getCookieAmountForPerson(String username) throws UserNotFoundException {
         Connection conn = database.getConnection();
         username = username.trim();
         try {
@@ -41,14 +44,15 @@ public class CookieDataBaseManipulator {
             return result.get(0).getCookieCount();
         } catch (SQLException e) {
             e.printStackTrace();
+            CookieBotMain.printStaticMessageToAuthors();
         }
-        throw new InvalidParameterException("Couldn't find user in database");
+        throw new UserNotFoundException("Couldn't find user in database");
     }
 
     /*
     * Get the modstatus from a specific user.
      */
-    public boolean getModStatusForPerson(String username){
+    public boolean getModStatusForPerson(String username) throws UserNotFoundException {
         Connection conn = database.getConnection();
         username = username.trim();
         try {
@@ -58,8 +62,9 @@ public class CookieDataBaseManipulator {
             return result.get(0).isModStatus();
         } catch (SQLException e) {
             e.printStackTrace();
+            CookieBotMain.printStaticMessageToAuthors();
         }
-        throw new InvalidParameterException("Couldn't find user in database");
+        throw new UserNotFoundException("Couldn't find user in database");
     }
 
     /*
@@ -74,6 +79,7 @@ public class CookieDataBaseManipulator {
             return !database.executeSQLStatement(ps).isEmpty();
         } catch (SQLException e) {
             e.printStackTrace();
+            CookieBotMain.printStaticMessageToAuthors();
         }
         return false;
     }
@@ -87,12 +93,21 @@ public class CookieDataBaseManipulator {
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            CookieBotMain.printStaticMessageToAuthors();
         }
         return false;
     }
 
     public boolean addCookiesToUser(String username, int delta){
-        int current = getCookieAmountForPerson(username.trim());
+        int current = 0;
+
+        try {
+            current = getCookieAmountForPerson(username.trim());
+        } catch (UserNotFoundException e) {
+            System.out.println(username + " was not found in the database. Check the spelling and try again.");
+            return false;
+        }
+
         Connection conn = database.getConnection();
         try {
             PreparedStatement ps = conn.prepareStatement("UPDATE cookies set cookies=? where username like ?");
@@ -102,14 +117,23 @@ public class CookieDataBaseManipulator {
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            CookieBotMain.printStaticMessageToAuthors();
         }
         return false;
     }
 
-    public boolean takeCookiesFromUser(String username, int delta){
-        int current = getCookieAmountForPerson(username.trim());
+    public boolean takeCookiesFromUser(String username, int delta) throws OutOfCookieException {
+        int current = 0;
+
+        try {
+            current = getCookieAmountForPerson(username.trim());
+        } catch (UserNotFoundException e) {
+            System.out.println(username + " was not found in the database. Check the spelling and try again.");
+            return false;
+        }
+
         if (current - delta < 0){
-            throw new InvalidParameterException("You don't have enough cookies to buy this!");
+            throw new OutOfCookieException("You don't have enough cookies to buy this!");
         }else {
             Connection conn = database.getConnection();
             try {
@@ -120,6 +144,7 @@ public class CookieDataBaseManipulator {
                 return true;
             } catch (SQLException e) {
                 e.printStackTrace();
+                CookieBotMain.printStaticMessageToAuthors();
             }
             return false;
         }
@@ -129,5 +154,25 @@ public class CookieDataBaseManipulator {
         for (String s : usernames){
             addCookiesToUser(s, 1);
         }
+    }
+
+    public boolean initPersonInDatabase(String username, boolean modstatus){
+        Connection conn = database.getConnection();
+        try {
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO cookies VALUES (?,?,?)");
+            ps.setString(1,username.trim());
+            ps.setInt(2,0);
+            ps.setInt(3,changeMap.get(modstatus));
+            database.executeSQLUpdate(ps);
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            CookieBotMain.printStaticMessageToAuthors();
+
+        }
+        return false;
+    }
+    public boolean initPersonInDatabase(String username){
+        return this.initPersonInDatabase(username,false);
     }
 }
