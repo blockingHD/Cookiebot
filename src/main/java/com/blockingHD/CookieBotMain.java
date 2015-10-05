@@ -1,6 +1,6 @@
 package com.blockingHD;
 
-import com.blockingHD.commands.TestCommands;
+import com.blockingHD.commands.UserCommands;
 import com.blockingHD.database.CookieDataBaseManipulator;
 import com.blockingHD.database.CookieDatabase;
 import com.blockingHD.games.guess;
@@ -28,7 +28,7 @@ public class CookieBotMain {
             .setServerHostname(HOST)
             .setServerPort(PORT)
             .addAutoJoinChannel(CHAN)
-            .addListener(new TestCommands())
+            .addListener(new UserCommands())
             .addListener(new guess())
             .buildConfiguration();
 

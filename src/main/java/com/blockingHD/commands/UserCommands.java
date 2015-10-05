@@ -8,7 +8,7 @@ import org.pircbotx.hooks.events.MessageEvent;
 /**
  * Created by blockingHD on 03/10/2015.
  */
-public class TestCommands extends ListenerAdapter<PircBotX> {
+public class UserCommands extends ListenerAdapter<PircBotX> {
     @Override
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
         if(event.getMessage().equalsIgnoreCase("!hello")) {

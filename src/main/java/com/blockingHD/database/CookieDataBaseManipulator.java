@@ -4,7 +4,10 @@ import java.security.InvalidParameterException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by MrKickkiller on 4/10/2015.
@@ -12,6 +15,12 @@ import java.util.List;
  * Contains all modification / access methods to the database
  */
 public class CookieDataBaseManipulator {
+
+    static Map<Boolean,Integer> changeMap = new HashMap<>();
+    static {
+        changeMap.put(true,1);
+        changeMap.put(false,0);
+    }
 
     private IDatabase database;
 
@@ -67,5 +76,58 @@ public class CookieDataBaseManipulator {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public boolean updateModStatus(String username, boolean modstatus){
+        try {
+            PreparedStatement ps = database.getConnection().prepareStatement("UPDATE cookies set modstatus=? where username like ?");
+            ps.setInt(1,changeMap.get(modstatus));
+            ps.setString(2,username.trim());
+            database.executeSQLUpdate(ps);
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean addCookiesToUser(String username, int delta){
+        int current = getCookieAmountForPerson(username.trim());
+        Connection conn = database.getConnection();
+        try {
+            PreparedStatement ps = conn.prepareStatement("UPDATE cookies set cookies=? where username like ?");
+            ps.setInt(1, current + delta);
+            ps.setString(2, username.trim());
+            database.executeSQLUpdate(ps);
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean takeCookiesFromUser(String username, int delta){
+        int current = getCookieAmountForPerson(username.trim());
+        if (current - delta < 0){
+            throw new InvalidParameterException("You don't have enough cookies to buy this!");
+        }else {
+            Connection conn = database.getConnection();
+            try {
+                PreparedStatement ps = conn.prepareStatement("UPDATE cookies set cookies=? where username like ?");
+                ps.setInt(1, current - delta);
+                ps.setString(2, username.trim());
+                database.executeSQLUpdate(ps);
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+    }
+
+    public void addOneCookieToAllCurrentViewers(ArrayList<String> usernames){
+        for (String s : usernames){
+            addCookiesToUser(s, 1);
+        }
     }
 }
