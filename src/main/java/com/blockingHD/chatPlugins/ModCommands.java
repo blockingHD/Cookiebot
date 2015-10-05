@@ -1,4 +1,4 @@
-package com.blockingHD.commands;
+package com.blockingHD.chatPlugins;
 
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
@@ -20,7 +20,7 @@ public class ModCommands extends ListenerAdapter<PircBotX> {
                 String target = message.replace("!mod", "").trim();
                 if (CDBM.isPersonAlreadyInDatabase(target)) {
                     CDBM.updateModStatus(target, true);
-                    event.getChannel().send().message(username + " has moded " + target);
+                    event.getChannel().send().message(username + " has modded " + target);
                 }
             }
 
@@ -28,7 +28,7 @@ public class ModCommands extends ListenerAdapter<PircBotX> {
                 String target = message.replace("!unmod", "").trim();
                 if (CDBM.isPersonAlreadyInDatabase(target) && !username.equals(target)){
                     CDBM.updateModStatus(target, false);
-                    event.getChannel().send().message(username + " has unmoded " + target);
+                    event.getChannel().send().message(username + " has unmodded " + target);
                 }
             }
         }

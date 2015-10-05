@@ -1,7 +1,8 @@
 package com.blockingHD;
 
-import com.blockingHD.commands.ModCommands;
-import com.blockingHD.commands.UserCommands;
+import com.blockingHD.chatPlugins.DatabaseUpdater;
+import com.blockingHD.chatPlugins.ModCommands;
+import com.blockingHD.chatPlugins.UserCommands;
 import com.blockingHD.database.CookieDataBaseManipulator;
 import com.blockingHD.database.CookieDatabase;
 import com.blockingHD.games.guess;
@@ -32,6 +33,7 @@ public class CookieBotMain {
             .addListener(new UserCommands())
             .addListener(new guess())
             .addListener(new ModCommands())
+            .addListener(new DatabaseUpdater())
             .buildConfiguration();
 
 
@@ -46,5 +48,11 @@ public class CookieBotMain {
 
     public static void main(String[] args){
         new CookieBotMain();
+    }
+
+    public static void printStaticMessageToAuthors(){
+        System.out.println("Notify MrKickkiller or BlockingHD this happened.");
+        System.out.println("You should provide a log of what happened in the last 10 minutes!");
+        System.out.println("Use a github gist or a pastebin for this!");
     }
 }
