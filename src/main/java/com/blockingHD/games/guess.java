@@ -1,6 +1,5 @@
 package com.blockingHD.games;
 
-import com.blockingHD.CookieBotMain;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -9,12 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static com.blockingHD.CookieBotMain.CDBM;
+
 /**
  * Created by blockingHD on 04/10/2015.
  */
 public class guess extends ListenerAdapter<PircBotX> {
 
-    int rand = new Random().nextInt(30);
+    int rand = 0;
     boolean isDone;
     List<String> users = new ArrayList<String>();
 
@@ -22,17 +23,17 @@ public class guess extends ListenerAdapter<PircBotX> {
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
         String username = event.getUser().getNick();
 
-        if (event.getMessage().toLowerCase().contains("!resetguess") && CookieBotMain.CDBM.getModStatusForPerson(username)){
+        if (event.getMessage().toLowerCase().contains("!resetguess") && CDBM.getModStatusForPerson(username)){
             rand = new Random().nextInt(30);
             System.out.print(rand);
             users.clear();
             isDone = false;
             event.getChannel().send().message("A new round of cookie-guessing has begon. Get to them before Loneztar does!");
 
-        }else if (event.getMessage().toLowerCase().contains("!resetguess") && CookieBotMain.CDBM.isPersonAlreadyInDatabase(username.trim()) && !CookieBotMain.CDBM.getModStatusForPerson(username)){
+        }else if (!CDBM.getModStatusForPerson(username)&& event.getMessage().toLowerCase().contains("!resetguess")){
             event.getChannel().send().message("Nice try " + username + ", but better luck next time!");
         } else if (event.getMessage().toLowerCase().contains("!guess")){
-            String guess = event.getMessage().replace("!guess ", "");
+            String guess = event.getMessage().replace("!guess ", "").trim();
             if (isInt(guess)) {
                 if (rand != Integer.parseInt(guess) && !isDone && !users.contains(username)) {
                     event.getChannel().send().message("Sorry that is incorrect " + username + " better luck next time.");
@@ -56,7 +57,7 @@ public class guess extends ListenerAdapter<PircBotX> {
 
     private boolean isInt(String string){
         try {
-            Integer.parseInt(string);
+            Integer.parseInt(string.trim());
         }catch (NumberFormatException e){
             return false;
         }

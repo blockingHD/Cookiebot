@@ -1,6 +1,7 @@
 package com.blockingHD;
 
-import com.blockingHD.commands.TestCommands;
+import com.blockingHD.commands.ModCommands;
+import com.blockingHD.commands.UserCommands;
 import com.blockingHD.database.CookieDataBaseManipulator;
 import com.blockingHD.database.CookieDatabase;
 import com.blockingHD.games.guess;
@@ -28,9 +29,9 @@ public class CookieBotMain {
             .setServerHostname(HOST)
             .setServerPort(PORT)
             .addAutoJoinChannel(CHAN)
-            .addListener(new TestCommands())
+            .addListener(new UserCommands())
             .addListener(new guess())
-            .addListener(new DatabaseUpdater())
+            .addListener(new ModCommands())
             .buildConfiguration();
 
 
@@ -45,9 +46,5 @@ public class CookieBotMain {
 
     public static void main(String[] args){
         new CookieBotMain();
-    }
-
-    public static void printStaticMessageToAuthors(){
-        System.out.println("Notify MrKickkiller or BlockingHD this happened.");
     }
 }
