@@ -47,4 +47,10 @@ public class CookieBotMain {
     public static void main(String[] args){
         new CookieBotMain();
     }
+
+    public static void printStaticMessageToAuthors(){
+        System.out.println("Notify MrKickkiller or BlockingHD this happened.");
+        System.out.println("You should provide a log of what happened in the last 10 minutes!");
+        System.out.println("Use a github gist or a pastebin for this!");
+    }
 }

@@ -1,7 +1,7 @@
 package com.blockingHD.exceptions;
 
 /**
- * Created by Mathieu on 5/10/2015.
+ * Created by MrKickkiller on 5/10/2015.
  */
 public class OutOfCookieException extends Exception {
     public OutOfCookieException() {
