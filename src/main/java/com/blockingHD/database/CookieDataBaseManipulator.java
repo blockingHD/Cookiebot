@@ -100,12 +100,15 @@ public class CookieDataBaseManipulator {
 
     public boolean addCookiesToUser(String username, int delta){
         int current = 0;
+
+
         try {
             current = getCookieAmountForPerson(username.trim());
         } catch (UserNotFoundException e) {
-            System.out.println(username.trim()+" was not found in the database. Check the spelling and try again.");
+            System.out.println(username + " was not found in the database. Check the spelling and try again.");
             return false;
         }
+
         Connection conn = database.getConnection();
         try {
             PreparedStatement ps = conn.prepareStatement("UPDATE cookies set cookies=? where username like ?");
@@ -122,6 +125,7 @@ public class CookieDataBaseManipulator {
 
     public boolean takeCookiesFromUser(String username, int delta) throws OutOfCookieException {
         int current = 0;
+
         try {
             current = getCookieAmountForPerson(username.trim());
         } catch (UserNotFoundException e) {
