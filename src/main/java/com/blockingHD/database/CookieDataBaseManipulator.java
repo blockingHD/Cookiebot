@@ -100,7 +100,7 @@ public class CookieDataBaseManipulator {
 
     public boolean addCookiesToUser(String username, int delta){
         int current = 0;
-<<<<<<< HEAD
+
 
         try {
             current = getCookieAmountForPerson(username.trim());
@@ -109,14 +109,6 @@ public class CookieDataBaseManipulator {
             return false;
         }
 
-=======
-        try {
-            current = getCookieAmountForPerson(username.trim());
-        } catch (UserNotFoundException e) {
-            System.out.println(username.trim()+" was not found in the database. Check the spelling and try again.");
-            return false;
-        }
->>>>>>> 2422f7d91cd09976f116bf0b48cfb6ad2fb86b36
         Connection conn = database.getConnection();
         try {
             PreparedStatement ps = conn.prepareStatement("UPDATE cookies set cookies=? where username like ?");
@@ -133,23 +125,13 @@ public class CookieDataBaseManipulator {
 
     public boolean takeCookiesFromUser(String username, int delta) throws OutOfCookieException {
         int current = 0;
-<<<<<<< HEAD
 
-        try {
-            current = getCookieAmountForPerson(username.trim());
-        } catch (UserNotFoundException e) {
-            System.out.println(username + " was not found in the database. Check the spelling and try again.");
-            return false;
-        }
-
-=======
         try {
             current = getCookieAmountForPerson(username.trim());
         } catch (UserNotFoundException e) {
             System.out.println(username.trim() + " was not found in the database. Check the spelling and try again");
             return false;
         }
->>>>>>> 2422f7d91cd09976f116bf0b48cfb6ad2fb86b36
         if (current - delta < 0){
             throw new OutOfCookieException("You don't have enough cookies to buy this!");
         }else {
@@ -190,10 +172,7 @@ public class CookieDataBaseManipulator {
         }
         return false;
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> 2422f7d91cd09976f116bf0b48cfb6ad2fb86b36
     public boolean initPersonInDatabase(String username){
         return this.initPersonInDatabase(username,false);
     }
