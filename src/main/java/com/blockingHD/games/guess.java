@@ -45,8 +45,8 @@ public class guess extends ListenerAdapter<PircBotX> {
             event.getChannel().send().message("Nice try " + username + ", but better luck next time!");
 
         // Normal user or moderator wants to Guess.
-        } else if (event.getMessage().toLowerCase().contains("!Guess")){
-            String guess = event.getMessage().replace("!Guess ", "").trim();
+        } else if (event.getMessage().toLowerCase().contains("!guess")){
+            String guess = event.getMessage().replace("!guess ", "").trim();
             if (isInt(guess)) {
                 if (rand != Integer.parseInt(guess) && !isDone && !users.contains(username)) {
                     if ( 0 <= Integer.parseInt(guess) &&Integer.parseInt(guess) <= maxGuessingNumber) {
