@@ -156,10 +156,10 @@ public class CookieDataBaseManipulator {
         }
     }
 
-    public void addOneCookieToAllCurrentViewers(ArrayList<String> usernames){
+    public void addCookiesToAllCurrentViewers(ArrayList<String> usernames, int bonusCookies){
         for (String s : usernames){
             if (this.isPersonAlreadyInDatabase(s)){
-                addCookiesToUser(s, 1);
+                addCookiesToUser(s, bonusCookies);
             }
         }
     }

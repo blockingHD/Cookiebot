@@ -16,6 +16,9 @@ import java.util.TimerTask;
  */
 public class CookieGiver extends ListenerAdapter<PircBotX> {
 
+    int timeBetweenCookieGiveAway = Integer.parseInt(CookieBotMain.prop.getProperty("timeBetweenCookieGiveaway"));
+    int cookiesGivenOut = Integer.parseInt(CookieBotMain.prop.getProperty("cookiesGivenOut"));
+
     Timer t = new Timer();
     int counter = 0;
 
@@ -35,10 +38,10 @@ public class CookieGiver extends ListenerAdapter<PircBotX> {
                         for (User user: coll){
                             usersInChat.add(user.getNick());
                         }
-                        CookieBotMain.CDBM.addOneCookieToAllCurrentViewers(usersInChat);
+                        CookieBotMain.CDBM.addCookiesToAllCurrentViewers(usersInChat, cookiesGivenOut);
                         counter += usersInChat.size();
                     }
-            },0,500);
+            },0,timeBetweenCookieGiveAway);
         }else if (message.toLowerCase().startsWith("!stopstream") &&
                 CookieBotMain.CDBM.isPersonAlreadyInDatabase(caller.getNick().toLowerCase().trim()) &&
                 CookieBotMain.CDBM.getModStatusForPerson(caller.getNick().toLowerCase().trim())){
