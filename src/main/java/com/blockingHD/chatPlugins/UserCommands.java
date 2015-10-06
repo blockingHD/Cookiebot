@@ -1,12 +1,10 @@
 package com.blockingHD.chatPlugins;
 
 import com.blockingHD.CookieBotMain;
-import com.blockingHD.utills.JSONMonipulator;
+import com.blockingHD.utills.JSONManipulator;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
-
-import java.net.URL;
 
 /**
  * Created by blockingHD on 03/10/2015.
@@ -17,7 +15,7 @@ public class UserCommands extends ListenerAdapter<PircBotX> {
         if(event.getMessage().equalsIgnoreCase("!hello")) {
             event.getChannel().send().message("Hi how are you today?");
             //Debugging command!
-            JSONMonipulator.getChatters(new URL("http://tmi.twitch.tv/group/user/blockinghd/chatters"));
+            JSONManipulator.getChatters("http://tmi.twitch.tv/group/user/blockinghd/chatters");
         }else if (event.getMessage().startsWith("!cookies")){
 
             /*
