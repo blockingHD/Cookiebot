@@ -33,7 +33,7 @@ public class CookieGiver extends ListenerAdapter<PircBotX> {
                         ImmutableCollection coll = event.getChannel().getUsers();
                         ArrayList<String> usersInChat = new ArrayList<String>(coll);
                         CookieBotMain.CDBM.addOneCookieToAllCurrentViewers(usersInChat);
-                        counter += 1 * usersInChat.size();
+                        counter += usersInChat.size();
                     }
             },0,3000);
         }else if (message.toLowerCase().startsWith("!stopstream") &&
