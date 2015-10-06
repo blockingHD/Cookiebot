@@ -33,7 +33,7 @@ public class ModCommands extends ListenerAdapter<PircBotX> {
                     event.getChannel().send().message("Why would you take mod away from yourself!");
                 }
             }
-        }else if (CDBM.isPersonAlreadyInDatabase(username.trim()) && ! CDBM.getModStatusForPerson(username.trim())){
+        }else if (CDBM.isPersonAlreadyInDatabase(username.trim()) && ! CDBM.getModStatusForPerson(username.trim()) && message.trim().startsWith("!")){
             event.getChannel().send().message("This command requires mod permission.");
         }
     }
