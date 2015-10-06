@@ -6,6 +6,7 @@ import com.blockingHD.chatPlugins.ModCommands;
 import com.blockingHD.chatPlugins.UserCommands;
 import com.blockingHD.database.CookieDataBaseManipulator;
 import com.blockingHD.database.CookieDatabase;
+import com.blockingHD.games.GiveAway;
 import com.blockingHD.games.guess;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
@@ -45,6 +46,7 @@ public class CookieBotMain {
             .addListener(new ModCommands())
             .addListener(new DatabaseUpdater())
             .addListener(new CookieGiver())
+            .addListener(new GiveAway())
             .buildConfiguration();
 
 
