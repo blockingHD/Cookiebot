@@ -30,12 +30,15 @@ public class CookieGiver extends ListenerAdapter<PircBotX> {
                     new TimerTask() {
                     @Override
                     public void run() {
-                        ImmutableCollection coll = event.getChannel().getUsers();
-                        ArrayList<String> usersInChat = new ArrayList<String>(coll);
+                        ImmutableCollection<User> coll = event.getChannel().getNormalUsers();
+                        ArrayList<String> usersInChat = new ArrayList<String>();
+                        for (User user: coll){
+                            usersInChat.add(user.getNick());
+                        }
                         CookieBotMain.CDBM.addOneCookieToAllCurrentViewers(usersInChat);
                         counter += usersInChat.size();
                     }
-            },0,3000);
+            },0,500);
         }else if (message.toLowerCase().startsWith("!stopstream") &&
                 CookieBotMain.CDBM.isPersonAlreadyInDatabase(caller.getNick().toLowerCase().trim()) &&
                 CookieBotMain.CDBM.getModStatusForPerson(caller.getNick().toLowerCase().trim())){

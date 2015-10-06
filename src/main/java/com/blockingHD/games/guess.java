@@ -36,7 +36,7 @@ public class guess extends ListenerAdapter<PircBotX> {
 
             // Normal viewer tries to reset the guess
         }else if (CDBM.isPersonAlreadyInDatabase(username.trim()) &&
-                !CDBM.getModStatusForPerson(username) &&
+                !CDBM.getModStatusForPerson(username.trim()) &&
                 event.getMessage().toLowerCase().contains("!resetguess")){
 
             event.getChannel().send().message("Nice try " + username + ", but better luck next time!");

@@ -37,8 +37,10 @@ public class UserCommands extends ListenerAdapter<PircBotX> {
             if (username.length() == 0){
                 username = event.getUser().getNick();
             }
-            int amount = CookieBotMain.CDBM.getCookieAmountForPerson(username);
-            event.getChannel().send().message(username + " has " + amount + " cookies in their secret stash");
+            if (CookieBotMain.CDBM.isPersonAlreadyInDatabase(username)){
+                int amount = CookieBotMain.CDBM.getCookieAmountForPerson(username);
+                event.getChannel().send().message(username + " has " + amount + " cookies in their secret stash");
+            }
         }
     }
 }

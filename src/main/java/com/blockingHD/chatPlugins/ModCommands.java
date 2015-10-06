@@ -15,8 +15,8 @@ public class ModCommands extends ListenerAdapter<PircBotX> {
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
         String username = event.getUser().getNick();
         String message = event.getMessage();
-        if (CDBM.getModStatusForPerson(username)) {
-            if (message.contains("!mod")) {
+        if (CDBM.isPersonAlreadyInDatabase(username.trim()) && CDBM.getModStatusForPerson(username.trim()) && message.trim().contains("!mod")) {
+            if (message.startsWith("!mod")) {
                 String target = message.replace("!mod", "").trim();
                 if (CDBM.isPersonAlreadyInDatabase(target)) {
                     CDBM.updateModStatus(target, true);
@@ -24,13 +24,17 @@ public class ModCommands extends ListenerAdapter<PircBotX> {
                 }
             }
 
-            if (message.contains("!unmod")) {
+            if (message.startsWith("!unmod")) {
                 String target = message.replace("!unmod", "").trim();
                 if (CDBM.isPersonAlreadyInDatabase(target) && !username.equals(target)){
                     CDBM.updateModStatus(target, false);
                     event.getChannel().send().message(username + " has unmodded " + target);
+                }else if (CDBM.isPersonAlreadyInDatabase(target)) {
+                    event.getChannel().send().message("Why would you take mod away from yourself!");
                 }
             }
+        }else if (CDBM.isPersonAlreadyInDatabase(username.trim()) && ! CDBM.getModStatusForPerson(username.trim())){
+            event.getChannel().send().message("This command requires mod permission.");
         }
     }
 }

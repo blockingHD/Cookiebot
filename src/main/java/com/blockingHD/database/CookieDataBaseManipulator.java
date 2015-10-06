@@ -41,6 +41,9 @@ public class CookieDataBaseManipulator {
             PreparedStatement ps = conn.prepareStatement("SELECT * from cookies where username like ?");
             ps.setString(1,username.trim());
             List<StreamViewer> result =  database.executeSQLStatement(ps);
+            if (result.size() == 0){
+                throw new UserNotFoundException("User was not found in the database");
+            }
             return result.get(0).getCookieCount();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,6 +62,9 @@ public class CookieDataBaseManipulator {
             PreparedStatement ps = conn.prepareStatement("SELECT * from cookies where username like ?");
             ps.setString(1,username.trim());
             List<StreamViewer> result =  database.executeSQLStatement(ps);
+            if (result.size() == 0){
+                throw new UserNotFoundException("User was not found in the database");
+            }
             return result.get(0).isModStatus();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -152,7 +158,9 @@ public class CookieDataBaseManipulator {
 
     public void addOneCookieToAllCurrentViewers(ArrayList<String> usernames){
         for (String s : usernames){
-            addCookiesToUser(s, 1);
+            if (this.isPersonAlreadyInDatabase(s)){
+                addCookiesToUser(s, 1);
+            }
         }
     }
 
