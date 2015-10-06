@@ -13,7 +13,7 @@ import static com.blockingHD.CookieBotMain.CDBM;
 /**
  * Created by blockingHD on 04/10/2015.
  */
-public class guess extends ListenerAdapter<PircBotX> {
+public class Guess extends ListenerAdapter<PircBotX> {
 
     int rand = new Random().nextInt(30);
     boolean isDone;
@@ -23,7 +23,7 @@ public class guess extends ListenerAdapter<PircBotX> {
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
         String username = event.getUser().getNick();
 
-        // Moderator resets the guess-ing
+        // Moderator resets the Guess-ing
         if (event.getMessage().toLowerCase().contains("!resetguess") &&
                 CDBM.isPersonAlreadyInDatabase(username.trim()) &&
                 CDBM.getModStatusForPerson(username.trim())){
@@ -34,16 +34,16 @@ public class guess extends ListenerAdapter<PircBotX> {
             isDone = false;
             event.getChannel().send().message("A new round of cookie-guessing has begon. Get to them before Loneztar does!");
 
-            // Normal viewer tries to reset the guess
+            // Normal viewer tries to reset the Guess
         }else if (CDBM.isPersonAlreadyInDatabase(username.trim()) &&
                 !CDBM.getModStatusForPerson(username) &&
                 event.getMessage().toLowerCase().contains("!resetguess")){
 
             event.getChannel().send().message("Nice try " + username + ", but better luck next time!");
 
-        // Normal user or moderator wants to guess.
-        } else if (event.getMessage().toLowerCase().contains("!guess")){
-            String guess = event.getMessage().replace("!guess ", "").trim();
+        // Normal user or moderator wants to Guess.
+        } else if (event.getMessage().toLowerCase().contains("!Guess")){
+            String guess = event.getMessage().replace("!Guess ", "").trim();
             if (isInt(guess)) {
                 if (rand != Integer.parseInt(guess) && !isDone && !users.contains(username)) {
                     if (Integer.parseInt(guess) <= 30) {
