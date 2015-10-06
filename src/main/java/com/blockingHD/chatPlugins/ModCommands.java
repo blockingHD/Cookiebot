@@ -15,7 +15,7 @@ public class ModCommands extends ListenerAdapter<PircBotX> {
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
         String username = event.getUser().getNick();
         String message = event.getMessage();
-        if (CDBM.getModStatusForPerson(username)) {
+        if ( CDBM.isPersonAlreadyInDatabase(username.trim())&&CDBM.getModStatusForPerson(username.trim())) {
             if (message.contains("!mod")) {
                 String target = message.replace("!mod", "").trim();
                 if (CDBM.isPersonAlreadyInDatabase(target)) {

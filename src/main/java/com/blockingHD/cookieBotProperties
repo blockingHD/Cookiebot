@@ -1,0 +1,18 @@
+# CookieBot properties file.
+
+# CookieBot
+# Created by BlockingHD and MrKickkiller
+#
+
+# Guessing
+
+maxGuessAmount=30
+amountOfCookiesWon=20
+
+# Cookies
+
+# in milliseconds
+timeBetweenCookieGiveaway=30000
+cookiesGivenOut=1
+
+

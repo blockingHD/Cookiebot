@@ -1,5 +1,6 @@
 package com.blockingHD.games;
 
+import com.blockingHD.CookieBotMain;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -14,8 +15,10 @@ import static com.blockingHD.CookieBotMain.CDBM;
  * Created by blockingHD on 04/10/2015.
  */
 public class guess extends ListenerAdapter<PircBotX> {
+    int maxGuessingNumber = Integer.parseInt(CookieBotMain.prop.getProperty("maxGuessAmount"));
+    int amountOfCookiesWon = Integer.parseInt(CookieBotMain.prop.getProperty("amountOfCookiesWon"));
 
-    int rand = new Random().nextInt(30);
+    int rand = new Random().nextInt(maxGuessingNumber);
     boolean isDone;
     List<String> users = new ArrayList<String>();
 
@@ -23,38 +26,38 @@ public class guess extends ListenerAdapter<PircBotX> {
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
         String username = event.getUser().getNick();
 
-        // Moderator resets the guess-ing
+        // Moderator resets the Guess-ing
         if (event.getMessage().toLowerCase().contains("!resetguess") &&
                 CDBM.isPersonAlreadyInDatabase(username.trim()) &&
                 CDBM.getModStatusForPerson(username.trim())){
 
-            rand = new Random().nextInt(30);
+            rand = new Random().nextInt(maxGuessingNumber);
             System.out.print(rand);
             users.clear();
             isDone = false;
             event.getChannel().send().message("A new round of cookie-guessing has begon. Get to them before Loneztar does!");
 
-            // Normal viewer tries to reset the guess
+            // Normal viewer tries to reset the Guess
         }else if (CDBM.isPersonAlreadyInDatabase(username.trim()) &&
                 !CDBM.getModStatusForPerson(username) &&
                 event.getMessage().toLowerCase().contains("!resetguess")){
 
             event.getChannel().send().message("Nice try " + username + ", but better luck next time!");
 
-        // Normal user or moderator wants to guess.
-        } else if (event.getMessage().toLowerCase().contains("!guess")){
-            String guess = event.getMessage().replace("!guess ", "").trim();
+        // Normal user or moderator wants to Guess.
+        } else if (event.getMessage().toLowerCase().contains("!Guess")){
+            String guess = event.getMessage().replace("!Guess ", "").trim();
             if (isInt(guess)) {
                 if (rand != Integer.parseInt(guess) && !isDone && !users.contains(username)) {
-                    if (Integer.parseInt(guess) <= 30) {
+                    if ( 0 <= Integer.parseInt(guess) &&Integer.parseInt(guess) <= maxGuessingNumber) {
                         event.getChannel().send().message("Sorry that is incorrect " + username + " better luck next time.");
                         users.add(username);
                     }else {
-                        event.getChannel().send().message("Please choose a number between 0 and 30");
+                        event.getChannel().send().message("Please choose a number between 0 and " + maxGuessingNumber);
                     }
                 } else if (rand == Integer.parseInt(guess) && !isDone && !users.contains(username)) {
-                    event.getChannel().send().message("That is correct " + username + "! Here have " + rand + " cookies.");
-                    CDBM.addCookiesToUser(username.trim(), 20);
+                    event.getChannel().send().message("That is correct " + username + "! Here have " + amountOfCookiesWon + " cookies.");
+                    CDBM.addCookiesToUser(username.trim(), amountOfCookiesWon);
                     isDone = true;
                 } else if (isDone) {
                     event.getChannel().send().message("Sorry the cookies have been taken ,better luck next time " + username + ".");

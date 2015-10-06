@@ -13,8 +13,6 @@ public class UserCommands extends ListenerAdapter<PircBotX> {
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
         if(event.getMessage().equalsIgnoreCase("!hello")) {
             event.getChannel().send().message("Hi how are you today?");
-            //Debugging command!
-            CookieBotMain.CDBM.updateModStatus(event.getUser().getNick(), true);
         }else if (event.getMessage().startsWith("!cookies")){
 
             /*
