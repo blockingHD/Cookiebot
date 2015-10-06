@@ -30,10 +30,12 @@ public class GiveAway extends ListenerAdapter<PircBotX> {
                 event.getChannel().send().message("Giveaway has started with the keyword: " + keyword + " type this is chat at the cost of 10 cookies!!");
 
             }
-        }else if (event.getMessage().toLowerCase().contains(keyword)){
-            if (CDBM.getCookieAmountForPerson(username) >= 10 && !users.contains(username)){
-                CDBM.takeCookiesFromUser(username, 10);
-                users.add(username);
+        }else if (hasStarted && !keyword.isEmpty()){
+            if (event.getMessage().toLowerCase().contains(keyword)) {
+                if (CDBM.getCookieAmountForPerson(username) >= 10 && !users.contains(username)) {
+                    CDBM.takeCookiesFromUser(username, 10);
+                    users.add(username);
+                }
             }
         }else if (event.getMessage().contains("!drawgiveaway")){
             if (CDBM.getModStatusForPerson(username) && hasStarted){
