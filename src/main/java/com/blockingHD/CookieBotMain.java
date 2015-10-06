@@ -6,7 +6,7 @@ import com.blockingHD.chatPlugins.ModCommands;
 import com.blockingHD.chatPlugins.UserCommands;
 import com.blockingHD.database.CookieDataBaseManipulator;
 import com.blockingHD.database.CookieDatabase;
-import com.blockingHD.games.Guess;
+import com.blockingHD.games.guess;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.exception.IrcException;
@@ -41,7 +41,7 @@ public class CookieBotMain {
             .setServerPort(PORT)
             .addAutoJoinChannel(CHAN)
             .addListener(new UserCommands())
-            .addListener(new Guess())
+            .addListener(new guess())
             .addListener(new ModCommands())
             .addListener(new DatabaseUpdater())
             .addListener(new CookieGiver())

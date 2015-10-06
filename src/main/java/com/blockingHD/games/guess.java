@@ -1,5 +1,6 @@
 package com.blockingHD.games;
 
+import com.blockingHD.CookieBotMain;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -13,9 +14,11 @@ import static com.blockingHD.CookieBotMain.CDBM;
 /**
  * Created by blockingHD on 04/10/2015.
  */
-public class Guess extends ListenerAdapter<PircBotX> {
+public class guess extends ListenerAdapter<PircBotX> {
+    int maxGuessingNumber = Integer.parseInt(CookieBotMain.prop.getProperty("maxGuessAmount"));
+    int amountOfCookiesWon = Integer.parseInt(CookieBotMain.prop.getProperty("amountOfCookiesWon"));
 
-    int rand = new Random().nextInt(30);
+    int rand = new Random().nextInt(maxGuessingNumber);
     boolean isDone;
     List<String> users = new ArrayList<String>();
 
@@ -28,7 +31,7 @@ public class Guess extends ListenerAdapter<PircBotX> {
                 CDBM.isPersonAlreadyInDatabase(username.trim()) &&
                 CDBM.getModStatusForPerson(username.trim())){
 
-            rand = new Random().nextInt(30);
+            rand = new Random().nextInt(maxGuessingNumber);
             System.out.print(rand);
             users.clear();
             isDone = false;
@@ -46,15 +49,15 @@ public class Guess extends ListenerAdapter<PircBotX> {
             String guess = event.getMessage().replace("!Guess ", "").trim();
             if (isInt(guess)) {
                 if (rand != Integer.parseInt(guess) && !isDone && !users.contains(username)) {
-                    if (Integer.parseInt(guess) <= 30) {
+                    if ( 0 <= Integer.parseInt(guess) &&Integer.parseInt(guess) <= maxGuessingNumber) {
                         event.getChannel().send().message("Sorry that is incorrect " + username + " better luck next time.");
                         users.add(username);
                     }else {
-                        event.getChannel().send().message("Please choose a number between 0 and 30");
+                        event.getChannel().send().message("Please choose a number between 0 and " + maxGuessingNumber);
                     }
                 } else if (rand == Integer.parseInt(guess) && !isDone && !users.contains(username)) {
-                    event.getChannel().send().message("That is correct " + username + "! Here have " + rand + " cookies.");
-                    CDBM.addCookiesToUser(username.trim(), 20);
+                    event.getChannel().send().message("That is correct " + username + "! Here have " + amountOfCookiesWon + " cookies.");
+                    CDBM.addCookiesToUser(username.trim(), amountOfCookiesWon);
                     isDone = true;
                 } else if (isDone) {
                     event.getChannel().send().message("Sorry the cookies have been taken ,better luck next time " + username + ".");

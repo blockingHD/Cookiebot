@@ -6,13 +6,13 @@
 
 # Guessing
 
-maxGuessAmount=69
+maxGuessAmount=30
 amountOfCookiesWon=20
 
 # Cookies
 
 # in milliseconds
-timeBetweenCookieGiveaway=3000
+timeBetweenCookieGiveaway=30000
 cookiesGivenOut=1
 
 
