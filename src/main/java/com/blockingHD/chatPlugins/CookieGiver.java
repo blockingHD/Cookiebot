@@ -19,6 +19,10 @@ public class CookieGiver extends ListenerAdapter<PircBotX> {
     Timer t = new Timer();
     int counter = 0;
 
+    int timeBetweenCookieGiveAway = Integer.parseInt(CookieBotMain.prop.getProperty("timeBetweenCookieGiveaway"));
+    int cookiesGivenOut = Integer.parseInt(CookieBotMain.prop.getProperty("cookiesGivenOut"));
+
+
     @Override
     public void onMessage(final MessageEvent<PircBotX> event) throws Exception {
         String message = event.getMessage();
@@ -32,10 +36,10 @@ public class CookieGiver extends ListenerAdapter<PircBotX> {
                     @Override
                     public void run() {
                         ArrayList<String> coll = JSONManipulator.getChatters("http://tmi.twitch.tv/group/user/"+ urlPart+ "/chatters");
-                        CookieBotMain.CDBM.addOneCookieToAllCurrentViewers(coll);
+                        CookieBotMain.CDBM.addCookiesToAllCurrentViewers(coll, cookiesGivenOut);
                         counter += coll.size();
                     }
-            },0,3000);
+            },0,timeBetweenCookieGiveAway);
         }else if (message.toLowerCase().startsWith("!stopstream") &&
                 CookieBotMain.CDBM.isPersonAlreadyInDatabase(caller.getNick().toLowerCase().trim()) &&
                 CookieBotMain.CDBM.getModStatusForPerson(caller.getNick().toLowerCase().trim())){

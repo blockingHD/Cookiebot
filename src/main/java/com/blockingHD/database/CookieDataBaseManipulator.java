@@ -154,9 +154,9 @@ public class CookieDataBaseManipulator {
         }
     }
 
-    public void addOneCookieToAllCurrentViewers(ArrayList<String> usernames){
+    public void addCookiesToAllCurrentViewers(ArrayList<String> usernames,int bonuscookies){
         for (String s : usernames){
-            addCookiesToUser(s, 1);
+            addCookiesToUser(s, bonuscookies);
         }
     }
 

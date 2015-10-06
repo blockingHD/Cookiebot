@@ -11,7 +11,10 @@ import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.exception.IrcException;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 import static com.blockingHD.Referance.*;
 
@@ -22,6 +25,12 @@ public class CookieBotMain {
 
     public static final CookieDatabase DB = new CookieDatabase();
     public static final CookieDataBaseManipulator CDBM = new CookieDataBaseManipulator(DB);
+
+    public static final Properties prop = new Properties();
+
+    static {
+        loadProperties();
+    }
 
     Configuration<PircBotX> twitch = new Configuration.Builder<PircBotX>()
             .setName(NAME)
@@ -41,6 +50,7 @@ public class CookieBotMain {
 
     public CookieBotMain(){
         PircBotX bot = new PircBotX(twitch);
+
         try {
             bot.startBot();
         } catch (IOException | IrcException e) {
@@ -56,5 +66,13 @@ public class CookieBotMain {
         System.out.println("Notify MrKickkiller or BlockingHD this happened.");
         System.out.println("You should provide a log of what happened in the last 10 minutes!");
         System.out.println("Use a github gist or a pastebin for this!");
+    }
+
+    public static void loadProperties(){
+        try (InputStream inputStream = new FileInputStream("src/main/java/com/blockingHD/cookieBotProperties")){
+            prop.load(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,7 +1,6 @@
 package com.blockingHD.chatPlugins;
 
 import com.blockingHD.CookieBotMain;
-import com.blockingHD.utills.JSONManipulator;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -14,8 +13,6 @@ public class UserCommands extends ListenerAdapter<PircBotX> {
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
         if(event.getMessage().equalsIgnoreCase("!hello")) {
             event.getChannel().send().message("Hi how are you today?");
-            //Debugging command!
-            JSONManipulator.getChatters("http://tmi.twitch.tv/group/user/blockinghd/chatters");
         }else if (event.getMessage().startsWith("!cookies")){
 
             /*
