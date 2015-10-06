@@ -39,7 +39,7 @@ public class CookieGiver extends ListenerAdapter<PircBotX> {
         }else if (message.toLowerCase().startsWith("!stopstream") &&
                 CookieBotMain.CDBM.isPersonAlreadyInDatabase(caller.getNick().toLowerCase().trim()) &&
                 CookieBotMain.CDBM.getModStatusForPerson(caller.getNick().toLowerCase().trim())){
-            event.getChannel.send.message(Integer.toString(counter) + " cookies have been given away this stream");    
+            event.getChannel().send().message(Integer.toString(counter) + " cookies have been given away this stream");
             t.cancel();
         }
     }
