@@ -2,63 +2,73 @@ package com.blockingHD.utills;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 /**
  * Created by MrKickkiller on 6/10/2015.
  */
 public class TwitchApiReturn {
     class Chatters{
         @SerializedName("moderators")
-        String[] moderators;
+        ArrayList<String> moderators;
         @SerializedName("staff")
-        String[] staff;
+        ArrayList<String> staff;
         @SerializedName("admins")
-        String[] admins;
+        ArrayList<String> admins;
         @SerializedName("global_mods")
-        String[] global_mods;
+        ArrayList<String> global_mods;
         @SerializedName("viewers")
-        String[] viewers;
+        ArrayList<String> viewers;
 
         public Chatters() {
         }
 
-        public String[] getModerators() {
+        public ArrayList<String> getModerators() {
             return moderators;
         }
 
-        public void setModerators(String[] moderators) {
+        public void setModerators(ArrayList<String> moderators) {
             this.moderators = moderators;
         }
 
-        public String[] getStaff() {
+        public ArrayList<String> getStaff() {
             return staff;
         }
 
-        public void setStaff(String[] staff) {
+        public void setStaff(ArrayList<String> staff) {
             this.staff = staff;
         }
 
-        public String[] getAdmins() {
+        public ArrayList<String> getAdmins() {
             return admins;
         }
 
-        public void setAdmins(String[] admins) {
+        public void setAdmins(ArrayList<String> admins) {
             this.admins = admins;
         }
 
-        public String[] getGlobal_mods() {
+        public ArrayList<String> getGlobal_mods() {
             return global_mods;
         }
 
-        public void setGlobal_mods(String[] global_mods) {
+        public void setGlobal_mods(ArrayList<String> global_mods) {
             this.global_mods = global_mods;
         }
 
-        public String[] getViewers() {
+        public ArrayList<String> getViewers() {
             return viewers;
         }
 
-        public void setViewers(String[] viewers) {
+        public void setViewers(ArrayList<String> viewers) {
             this.viewers = viewers;
+        }
+
+        public ArrayList<String> getAllInChat(){
+            viewers.addAll(getGlobal_mods());
+            viewers.addAll(getAdmins());
+            viewers.addAll(getStaff());
+            viewers.addAll(moderators);
+            return viewers;
         }
     }
 

@@ -26,7 +26,7 @@ public class CookieDatabase implements AutoCloseable, IDatabase<StreamViewer>{
             conn.prepareStatement("CREATE TABLE cookies(username NAME, cookies int, modstatus INT DEFAULT 0)").execute();
 
             // Add a normal standard value (FOR TESTING)
-            //conn.prepareStatement("INSERT into cookies(username,cookies) VALUES('MrKickkiller',14)").execute();
+            conn.prepareStatement("INSERT into cookies(username,cookies,modstatus) VALUES('mrkickkiller',14,1)").execute();
             conn.prepareStatement("INSERT into cookies(username,cookies) VALUES('BlockingHD',18)").execute();
             conn.prepareStatement("INSERT into cookies(username,cookies) VALUES('Quetzi',22)").execute();
             conn.prepareStatement("INSERT into cookies(username,cookies) VALUES('K4',26)").execute();
