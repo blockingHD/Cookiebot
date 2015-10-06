@@ -17,6 +17,7 @@ import java.util.TimerTask;
 public class CookieGiver extends ListenerAdapter<PircBotX> {
 
     Timer t = new Timer();
+    int counter = 0;
 
     @Override
     public void onMessage(final MessageEvent<PircBotX> event) throws Exception {
@@ -32,12 +33,13 @@ public class CookieGiver extends ListenerAdapter<PircBotX> {
                         ImmutableCollection coll = event.getChannel().getUsers();
                         ArrayList<String> usersInChat = new ArrayList<String>(coll);
                         CookieBotMain.CDBM.addOneCookieToAllCurrentViewers(usersInChat);
-                        event.getChannel().send().message("1 cookie has been given to anyone in chat!");
+                        counter += 1 * usersInChat.size();
                     }
             },0,3000);
         }else if (message.toLowerCase().startsWith("!stopstream") &&
                 CookieBotMain.CDBM.isPersonAlreadyInDatabase(caller.getNick().toLowerCase().trim()) &&
                 CookieBotMain.CDBM.getModStatusForPerson(caller.getNick().toLowerCase().trim())){
+            event.getChannel.send.message(Integer.toString(counter) + " cookies have been given away this stream");    
             t.cancel();
         }
     }
