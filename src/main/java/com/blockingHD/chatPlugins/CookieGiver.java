@@ -42,6 +42,9 @@ public class CookieGiver extends ListenerAdapter<PircBotX> {
             event.getChannel().send().message(Integer.toString(counter) + " cookies have been given away this stream");
             counter = 0;
             t.cancel();
+
+        }else if (message.toLowerCase().trim().startsWith("!cookiesthisstream")){
+            event.getChannel().send().message(counter + " cookies have been given away already this stream!");
         }
     }
 }
