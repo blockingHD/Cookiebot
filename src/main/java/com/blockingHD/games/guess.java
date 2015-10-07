@@ -7,6 +7,7 @@ import org.pircbotx.hooks.events.MessageEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 import static com.blockingHD.CookieBotMain.CDBM;
@@ -67,7 +68,7 @@ public class guess extends ListenerAdapter<PircBotX> {
                     System.out.println("ERROR!");
                 }
             // Reveal the amount of cookies in the jar and sets it as completed.
-            }else if (guess == "cookies" &&
+            }else if (guess.equals("cookies") &&
                     CDBM.isPersonAlreadyInDatabase(username.trim()) &&
                     CDBM.getModStatusForPerson(username.trim())){
                 event.getChannel().send().message("The amount of cookies in the bunny's secret jar was " + rand + "!");

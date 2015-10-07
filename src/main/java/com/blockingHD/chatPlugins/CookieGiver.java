@@ -37,7 +37,9 @@ public class CookieGiver extends ListenerAdapter<PircBotX> {
                     public void run() {
                         ArrayList<String> coll = JSONManipulator.getChatters("http://tmi.twitch.tv/group/user/"+ urlPart+ "/chatters");
                         CookieBotMain.CDBM.addCookiesToAllCurrentViewers(coll, cookiesGivenOut);
-                        counter += coll.size();
+                        if (coll != null){
+                            counter += coll.size();
+                        }
                     }
             },0,timeBetweenCookieGiveAway);
         }else if (message.toLowerCase().startsWith("!stopstream") &&

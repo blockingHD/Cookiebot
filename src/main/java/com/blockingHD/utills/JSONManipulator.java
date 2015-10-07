@@ -18,7 +18,7 @@ public class JSONManipulator {
             TwitchApiReturn returnVal = gson.fromJson(new BufferedReader(new InputStreamReader(new URL(url).openStream())), TwitchApiReturn.class);
             return returnVal.getChatters().getAllInChat();
         }catch (Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
         return null;
     }
@@ -29,7 +29,7 @@ public class JSONManipulator {
             TwitchApiReturn returnVal = gson.fromJson(new BufferedReader(new InputStreamReader(new URL(url).openStream())), TwitchApiReturn.class);
             return returnVal.getChatters().getModerators();
         }catch (Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
         return null;
     }
