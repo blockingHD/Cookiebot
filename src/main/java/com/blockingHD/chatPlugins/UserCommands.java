@@ -12,7 +12,9 @@ import static com.blockingHD.CookieBotMain.*;
 public class UserCommands extends ListenerAdapter<PircBotX> {
 
     String calculator = prop.getProperty("enableCalculator");
-    
+    String commandlist = prop.getProperty("commandListURL");
+    String commandEnable = prop.getProperty("showViewersCommandList");
+
     //To Do: add commands and returns to props file
     
     @Override
@@ -71,6 +73,11 @@ public class UserCommands extends ListenerAdapter<PircBotX> {
                 } else if (calculation[2].contains("-")) {
                     event.getChannel().send().message(Integer.toString(Integer.parseInt(calculation[1]) - Integer.parseInt(calculation[3])));
                 }
+            }
+
+        }else if (event.getMessage().startsWith("!commands")){
+            if (commandEnable.equals("true")){
+                event.getChannel().send().message("Command list can  be found here: " + commandlist);
             }
 
         }

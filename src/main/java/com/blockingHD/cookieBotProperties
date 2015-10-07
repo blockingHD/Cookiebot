@@ -16,6 +16,9 @@ timeBetweenCookieGiveaway=30000
 cookiesGivenOut=1
 
 # commands
+showViewersCommandList=true
+commandListURL=http://pastebin.com/QkHzdTRv
+
 enableCalculator=true
 
 
