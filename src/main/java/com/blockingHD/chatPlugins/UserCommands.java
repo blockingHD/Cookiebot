@@ -55,6 +55,22 @@ public class UserCommands extends ListenerAdapter<PircBotX> {
             }
             int amount = CookieBotMain.CDBM.getCookieAmountForPerson(username);
             event.getChannel().send().message(username + " has " + amount + " cookies in their secret stash");
+        }else if (event.getMessage().startsWith("!cal")){
+            
+            //needs testing and maybe a diable option if needed? also needs int checks.
+            
+            String calculation = event.getMessage().split("");
+            
+            if(calculation[1] == "*"){
+                event.getChannel().send().message(Intiger.phraseInt(calculation[0]) * Intiger.phraseInt(calculation[2]))
+            }else if(calculation[1] == "/"){
+                event.getChannel().send().message(Intiger.phraseInt(calculation[0]) / Intiger.phraseInt(calculation[2]))
+            }else if(calculation[1] == "+"){
+                event.getChannel().send().message(Intiger.phraseInt(calculation[0]) + Intiger.phraseInt(calculation[2]))
+            }else if(calculation[1] == "-"){
+                event.getChannel().send().message(Intiger.phraseInt(calculation[0]) - Intiger.phraseInt(calculation[2]))
+            }
+            
         }
     }
 }
