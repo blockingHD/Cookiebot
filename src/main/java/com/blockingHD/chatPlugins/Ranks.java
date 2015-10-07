@@ -27,8 +27,6 @@ public class Ranks extends ListenerAdapter<PircBotX> {
                 int amountOfCookies = CookieBotMain.CDBM.getCookieAmountForPerson(username);
                 boolean notFound = true;
                 int tracker = 0;
-                System.out.println(amountOfCookies);
-                System.out.println((Integer) map.keySet().toArray()[tracker]);
                 while (tracker <= map.keySet().toArray().length - 1 && amountOfCookies > (Integer) map.keySet().toArray()[tracker] ){
                     tracker ++;
                 }
