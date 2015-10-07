@@ -68,6 +68,7 @@ public class CookieBotMain {
         System.out.println("Notify MrKickkiller or BlockingHD this happened.");
         System.out.println("You should provide a log of what happened in the last 10 minutes!");
         System.out.println("Use a github gist or a pastebin for this!");
+
     }
 
     public static void loadProperties(){
