@@ -8,6 +8,7 @@ import com.blockingHD.database.CookieDataBaseManipulator;
 import com.blockingHD.database.CookieDatabase;
 import com.blockingHD.games.GiveAway;
 import com.blockingHD.games.guess;
+import com.blockingHD.utills.Checkers;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.exception.IrcException;
@@ -26,6 +27,7 @@ public class CookieBotMain {
 
     public static final CookieDatabase DB = new CookieDatabase();
     public static final CookieDataBaseManipulator CDBM = new CookieDataBaseManipulator(DB);
+    public static final Checkers CHECKERS = new Checkers();
 
     public static final Properties prop = new Properties();
 

@@ -15,4 +15,7 @@ amountOfCookiesWon=20
 timeBetweenCookieGiveaway=30000
 cookiesGivenOut=1
 
+# commands
+enableCalculator=true
+
 

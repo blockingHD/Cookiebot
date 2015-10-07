@@ -5,6 +5,7 @@ import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import static com.blockingHD.CookieBotMain.CDBM;
+import static com.blockingHD.CookieBotMain.CHECKERS;
 
 /**
  * Created by blockingHD on 05/10/2015.
@@ -35,7 +36,7 @@ public class ModCommands extends ListenerAdapter<PircBotX> {
             if (message.contains("!takecookies")){
                 String[] command = message.split(" ");
 
-                if (command.length == 3 && isInt(command[2])){
+                if (command.length == 3 && CHECKERS.isInt(command[2])){
                     if (CDBM.isPersonAlreadyInDatabase(command[1]) && CDBM.getCookieAmountForPerson(command[1]) >= Integer.parseInt(command[2])){
                         try {
                             CDBM.takeCookiesFromUser(command[1], Integer.parseInt(command[2]));
@@ -62,15 +63,6 @@ public class ModCommands extends ListenerAdapter<PircBotX> {
                 }
             }
         }
-    }
-
-    private boolean isInt(String string){
-        try {
-            Integer.parseInt(string.trim());
-        }catch (NumberFormatException e){
-            return false;
-        }
-        return true;
     }
 
 }

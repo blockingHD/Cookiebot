@@ -1,23 +1,21 @@
 package com.blockingHD.games;
 
-import com.blockingHD.CookieBotMain;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
-import static com.blockingHD.CookieBotMain.CDBM;
+import static com.blockingHD.CookieBotMain.*;
 
 /**
  * Created by blockingHD on 04/10/2015.
  */
 public class guess extends ListenerAdapter<PircBotX> {
-    int maxGuessingNumber = Integer.parseInt(CookieBotMain.prop.getProperty("maxGuessAmount"));
-    int amountOfCookiesWon = Integer.parseInt(CookieBotMain.prop.getProperty("amountOfCookiesWon"));
+    int maxGuessingNumber = Integer.parseInt(prop.getProperty("maxGuessAmount"));
+    int amountOfCookiesWon = Integer.parseInt(prop.getProperty("amountOfCookiesWon"));
 
     int rand = new Random().nextInt(maxGuessingNumber);
     boolean isDone;
@@ -48,7 +46,7 @@ public class guess extends ListenerAdapter<PircBotX> {
         // Normal user or moderator wants to Guess.
         } else if (event.getMessage().toLowerCase().contains("!guess")){
             String guess = event.getMessage().replace("!guess ", "").trim();
-            if (isInt(guess)) {
+            if (CHECKERS.isInt(guess)) {
                 if (rand != Integer.parseInt(guess) && !isDone && !users.contains(username)) {
                     if ( 0 <= Integer.parseInt(guess) &&Integer.parseInt(guess) <= maxGuessingNumber) {
                         event.getChannel().send().message("Sorry that is incorrect " + username + " better luck next time.");
@@ -81,12 +79,4 @@ public class guess extends ListenerAdapter<PircBotX> {
 
     }
 
-    private boolean isInt(String string){
-        try {
-            Integer.parseInt(string.trim());
-        }catch (NumberFormatException e){
-            return false;
-        }
-        return true;
-    }
 }
