@@ -1,6 +1,7 @@
 package com.blockingHD.chatPlugins;
 
 import com.blockingHD.CookieBotMain;
+import com.blockingHD.database.StreamViewer;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -13,6 +14,20 @@ public class UserCommands extends ListenerAdapter<PircBotX> {
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
         if(event.getMessage().equalsIgnoreCase("!hello")) {
             event.getChannel().send().message("Hi how are you today?");
+        }else if(event.getMessage().startsWith("!cookies give")){
+            // !cookies give username amount
+            String receiverAndCount = event.getMessage().replace("!cookies give","").trim();
+            String receiver = receiverAndCount.split(" ")[0];
+            int amount = Integer.parseInt(receiverAndCount.split(" ")[1]);
+            String sender = event.getUser().getNick().toLowerCase().trim();
+
+            if (CookieBotMain.CDBM.isPersonAlreadyInDatabase(sender.trim()) && CookieBotMain.CDBM.takeCookiesFromUser(sender.trim(), amount)){
+                CookieBotMain.CDBM.addCookiesToUser(receiver.trim(),amount);
+                event.getChannel().send().message( sender + " has given " + receiver + " " + amount+ " of cookies");
+            }else {
+                event.getChannel().send().message("Transaction failed. " + sender + " : Make sure you have enough cookies");
+            }
+
         }else if (event.getMessage().startsWith("!cookies")){
 
             /*
