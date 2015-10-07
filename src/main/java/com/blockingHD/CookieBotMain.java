@@ -1,9 +1,6 @@
 package com.blockingHD;
 
-import com.blockingHD.chatPlugins.CookieGiver;
-import com.blockingHD.chatPlugins.DatabaseUpdater;
-import com.blockingHD.chatPlugins.ModCommands;
-import com.blockingHD.chatPlugins.UserCommands;
+import com.blockingHD.chatPlugins.*;
 import com.blockingHD.database.CookieDataBaseManipulator;
 import com.blockingHD.database.CookieDatabase;
 import com.blockingHD.games.GiveAway;
@@ -49,6 +46,7 @@ public class CookieBotMain {
             .addListener(new DatabaseUpdater())
             .addListener(new CookieGiver())
             .addListener(new GiveAway())
+            .addListener(new Ranks())
             .buildConfiguration();
 
 
