@@ -26,9 +26,9 @@ public class GiveAway extends ListenerAdapter<PircBotX> {
             if (CDBM.getModStatusForPerson(username)) {
                 keyword = event.getMessage().replace("!giveaway", "").trim();
                 hasStarted = true;
-
-                event.getChannel().send().message("Giveaway has started with the keyword: " + keyword + " type this is chat at the cost of 10 cookies!!");
-
+                if (!keyword.isEmpty()) {
+                    event.getChannel().send().message("Giveaway has started with the keyword: " + keyword + " type this is chat at the cost of 10 cookies!!");
+                }
             }
         }else if (hasStarted && !keyword.isEmpty()){
             if (event.getMessage().toLowerCase().contains(keyword)) {
