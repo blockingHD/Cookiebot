@@ -17,7 +17,7 @@ public class CookieDatabase implements AutoCloseable, IDatabase<StreamViewer>{
         try {
             // Get connection to the database
             // TODO:Make settable in config file
-            conn = DriverManager.getConnection("jdbc:sqlite:src/main/java/com/blockingHD/databaseCookies.sqlite");
+            conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/databaseCookies.sqlite");
 
 //            // Clear the current table (For testing purposes)
 //            // TODO: Make table persistent

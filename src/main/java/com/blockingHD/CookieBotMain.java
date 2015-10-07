@@ -72,7 +72,8 @@ public class CookieBotMain {
     }
 
     public static void loadProperties(){
-        try (InputStream inputStream = new FileInputStream("src/main/java/com/blockingHD/cookieBotProperties")){
+        try (InputStream inputStream = new FileInputStream("src/main/resources/cookieBotProperties")){
+
             prop.load(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
