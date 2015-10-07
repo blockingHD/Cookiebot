@@ -63,7 +63,7 @@ public class TwitchApiReturn {
             this.viewers = viewers;
         }
 
-        public ArrayList<String> getAllInChat(){
+        public ArrayList<String> getAllViewersInChat(){
             viewers.addAll(getGlobal_mods());
             viewers.addAll(getAdmins());
             viewers.addAll(getStaff());

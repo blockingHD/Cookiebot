@@ -4,9 +4,11 @@
 ### Functionality
 Viewers gather cookies when in chat.
 
-Cookie giveaways!
+Commands can be found here: 
 
-COOOOOOKIIIIIEEEESSSS!!!
+Ideas and suggestions here:
 
+Artwork here(just an idea):
 
+Channels that use our bot can be found here:
 

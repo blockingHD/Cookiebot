@@ -1,18 +1,40 @@
 package com.blockingHD.chatPlugins;
 
-import com.blockingHD.CookieBotMain;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
+
+import static com.blockingHD.CookieBotMain.*;
 
 /**
  * Created by blockingHD on 03/10/2015.
  */
 public class UserCommands extends ListenerAdapter<PircBotX> {
+
+    String calculator = prop.getProperty("enableCalculator");
+    String commandlist = prop.getProperty("commandListURL");
+    String commandEnable = prop.getProperty("showViewersCommandList");
+
+    //To Do: add commands and returns to props file
+    
     @Override
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
         if(event.getMessage().equalsIgnoreCase("!hello")) {
-            event.getChannel().send().message("Hi how are you today?");
+            event.getChannel().send().message(".w " + event.getUser().getNick() + " Hi how are you today?");
+        }else if(event.getMessage().startsWith("!cookies give")){
+            // !cookies give username amount
+            String receiverAndCount = event.getMessage().replace("!cookies give","").trim();
+            String receiver = receiverAndCount.split(" ")[0];
+            int amount = Integer.parseInt(receiverAndCount.split(" ")[1]);
+            String sender = event.getUser().getNick().toLowerCase().trim();
+
+            if (CDBM.isPersonAlreadyInDatabase(sender.trim()) && CDBM.takeCookiesFromUser(sender.trim(), amount)){
+                CDBM.addCookiesToUser(receiver.trim(),amount);
+                event.getChannel().send().message( sender + " has given " + receiver + " " + amount+ " of cookies");
+            }else {
+                event.getChannel().send().message("Transaction failed. " + sender + " : Make sure you have enough cookies");
+            }
+
         }else if (event.getMessage().startsWith("!cookies")){
 
             /*
@@ -35,8 +57,30 @@ public class UserCommands extends ListenerAdapter<PircBotX> {
             if (username.length() == 0){
                 username = event.getUser().getNick();
             }
-            int amount = CookieBotMain.CDBM.getCookieAmountForPerson(username);
+            int amount = CDBM.getCookieAmountForPerson(username);
             event.getChannel().send().message(username + " has " + amount + " cookies in their secret stash");
+        }else if (event.getMessage().startsWith("!cal") && calculator.equalsIgnoreCase("true")){
+
+            String[] calculation = event.getMessage().replace("!cal", "").trim().split("");
+
+            if (CHECKERS.isInt(calculation[1]) && CHECKERS.isInt(calculation[1])) {
+                if (calculation[2].contains("*")) {
+                    event.getChannel().send().message(Integer.toString(Integer.parseInt(calculation[1]) * Integer.parseInt(calculation[3])));
+                } else if (calculation[2].contains("/")) {
+                    event.getChannel().send().message(Float.toString(Float.parseFloat(calculation[1]) / Float.parseFloat(calculation[3])));
+                } else if (calculation[2].contains("+")) {
+                    event.getChannel().send().message(Integer.toString(Integer.parseInt(calculation[1]) + Integer.parseInt(calculation[3])));
+                } else if (calculation[2].contains("-")) {
+                    event.getChannel().send().message(Integer.toString(Integer.parseInt(calculation[1]) - Integer.parseInt(calculation[3])));
+                }
+            }
+
+        }else if (event.getMessage().startsWith("!commands")){
+            if (commandEnable.equals("true")){
+                event.getChannel().send().message("Command list can  be found here: " + commandlist);
+            }
+
         }
     }
+
 }

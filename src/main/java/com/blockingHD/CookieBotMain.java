@@ -1,12 +1,11 @@
 package com.blockingHD;
 
-import com.blockingHD.chatPlugins.CookieGiver;
-import com.blockingHD.chatPlugins.DatabaseUpdater;
-import com.blockingHD.chatPlugins.ModCommands;
-import com.blockingHD.chatPlugins.UserCommands;
+import com.blockingHD.chatPlugins.*;
 import com.blockingHD.database.CookieDataBaseManipulator;
 import com.blockingHD.database.CookieDatabase;
+import com.blockingHD.games.GiveAway;
 import com.blockingHD.games.guess;
+import com.blockingHD.utills.Checkers;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.exception.IrcException;
@@ -25,6 +24,7 @@ public class CookieBotMain {
 
     public static final CookieDatabase DB = new CookieDatabase();
     public static final CookieDataBaseManipulator CDBM = new CookieDataBaseManipulator(DB);
+    public static final Checkers CHECKERS = new Checkers();
 
     public static final Properties prop = new Properties();
 
@@ -45,6 +45,8 @@ public class CookieBotMain {
             .addListener(new ModCommands())
             .addListener(new DatabaseUpdater())
             .addListener(new CookieGiver())
+            .addListener(new GiveAway())
+            .addListener(new Ranks())
             .buildConfiguration();
 
 
@@ -66,6 +68,7 @@ public class CookieBotMain {
         System.out.println("Notify MrKickkiller or BlockingHD this happened.");
         System.out.println("You should provide a log of what happened in the last 10 minutes!");
         System.out.println("Use a github gist or a pastebin for this!");
+
     }
 
     public static void loadProperties(){
