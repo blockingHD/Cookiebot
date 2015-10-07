@@ -18,7 +18,7 @@ public class UserCommands extends ListenerAdapter<PircBotX> {
     @Override
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
         if(event.getMessage().equalsIgnoreCase("!hello")) {
-            event.getChannel().send().message("Hi how are you today?");
+            event.getChannel().send().message(".w " + event.getUser().getNick() + " Hi how are you today?");
         }else if(event.getMessage().startsWith("!cookies give")){
             // !cookies give username amount
             String receiverAndCount = event.getMessage().replace("!cookies give","").trim();
@@ -58,9 +58,7 @@ public class UserCommands extends ListenerAdapter<PircBotX> {
             int amount = CDBM.getCookieAmountForPerson(username);
             event.getChannel().send().message(username + " has " + amount + " cookies in their secret stash");
         }else if (event.getMessage().startsWith("!cal") && calculator.equalsIgnoreCase("true")){
-            
-            //needs testing and maybe a diable option if needed? also needs int checks.
-            
+
             String[] calculation = event.getMessage().replace("!cal", "").trim().split("");
 
             if (CHECKERS.isInt(calculation[1]) && CHECKERS.isInt(calculation[1])) {
