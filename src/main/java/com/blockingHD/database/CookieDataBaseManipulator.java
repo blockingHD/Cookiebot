@@ -137,7 +137,8 @@ public class CookieDataBaseManipulator {
             return false;
         }
         if (current - delta < 0){
-            throw new OutOfCookieException("You don't have enough cookies to buy this!");
+            //throw new OutOfCookieException("You don't have enough cookies to buy this!");
+            return false;
         }else {
             Connection conn = database.getConnection();
             try {
