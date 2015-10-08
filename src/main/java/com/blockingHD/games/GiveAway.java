@@ -27,14 +27,32 @@ public class GiveAway extends ListenerAdapter<PircBotX> {
             return;
         }
         String username = event.getUser().getNick().toLowerCase().trim();
+        System.out.println(event.getMessage());
 
-        if (event.getMessage().toLowerCase().contains("!giveaway")){
+        if (event.getMessage().toLowerCase().startsWith("!giveaway")){
+            System.out.println("Giveaway");
             if (CDBM.isPersonAlreadyInDatabase(username) && CDBM.getModStatusForPerson(username)) {
-                keyword = event.getMessage().replace("!giveaway", "").trim();
-                hasStarted = true;
+                keyword = event.getMessage().replace("!giveaway", "").toLowerCase().trim();
+
                 if (!keyword.isEmpty()) {
+                    hasStarted = true;
                     event.getChannel().send().message("Giveaway has started with the keyword: " + keyword + " type this is chat at the cost of 10 cookies!!");
+                }else {
+                    event.getChannel().send().message("There was no keyword attached");
                 }
+
+
+            }
+        }else if (event.getMessage().startsWith("!drawgiveaway")){
+            if (CDBM.isPersonAlreadyInDatabase(username) && CDBM.getModStatusForPerson(username) && hasStarted){
+                if (users.isEmpty()){
+                    event.getChannel().send().message("Nobody entered the giveaway! :'(");
+                    return;
+                }
+                int rand = new Random().nextInt(users.size());
+                String winner = users.get(rand);
+                event.getChannel().send().message("The winner of the giveaway is: " + winner + "!!!!!");
+
             }
         }else if (hasStarted && !keyword.isEmpty()){
             if (event.getMessage().toLowerCase().contains(keyword)) {
@@ -42,19 +60,6 @@ public class GiveAway extends ListenerAdapter<PircBotX> {
                     CDBM.takeCookiesFromUser(username, 10);
                     users.add(username);
                 }
-            }
-        }else if (event.getMessage().contains("!drawgiveaway")){
-            if (CDBM.isPersonAlreadyInDatabase(username) && CDBM.getModStatusForPerson(username) && hasStarted){
-                if (users.isEmpty()){
-                    event.getChannel().send().message("Nobody entered the giveaway! :'(");
-                    return;
-                }
-                int rand = new Random().nextInt(users.size());
-
-                String winner = users.get(rand);
-
-                event.getChannel().send().message("The winner of the giveaway is: " + winner + "!!!!!");
-
             }
         }
     }
