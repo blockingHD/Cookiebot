@@ -1,5 +1,6 @@
 package com.blockingHD.chatPlugins;
 
+import com.blockingHD.CookieBotMain;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -11,9 +12,13 @@ import static com.blockingHD.CookieBotMain.CHECKERS;
  * Created by blockingHD on 05/10/2015.
  */
 public class ModCommands extends ListenerAdapter<PircBotX> {
+    boolean enabled = Boolean.parseBoolean(CookieBotMain.prop.getProperty("modCommandsEnabled"));
 
     @Override
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
+        if (!enabled){
+            return;
+        }
         String username = event.getUser().getNick();
         String message = event.getMessage().toLowerCase();
         if ( CDBM.isPersonAlreadyInDatabase(username.trim())&&CDBM.getModStatusForPerson(username.trim())) {

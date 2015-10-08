@@ -18,8 +18,13 @@ public class Ranks extends ListenerAdapter<PircBotX> {
         map.put(1000000, "Supreme");
     }
 
+    boolean enabled = Boolean.parseBoolean(CookieBotMain.prop.getProperty("ranksEnabled"));
+
     @Override
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
+        if (!enabled){
+            return;
+        }
         if (event.getMessage().startsWith("!rank")){
             String username = event.getUser().getNick();
             username = username.replace("!rank","").trim().split(" ")[0];

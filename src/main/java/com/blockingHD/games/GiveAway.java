@@ -1,5 +1,6 @@
 package com.blockingHD.games;
 
+import com.blockingHD.CookieBotMain;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -17,9 +18,14 @@ public class GiveAway extends ListenerAdapter<PircBotX> {
     String keyword;
     boolean hasStarted;
     ArrayList<String> users = new ArrayList<String>();
+    boolean enabled = Boolean.parseBoolean(CookieBotMain.prop.getProperty("giveawayEnabled"));
+
 
     @Override
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
+        if (!enabled){
+            return;
+        }
         String username = event.getUser().getNick().toLowerCase();
 
         if (event.getMessage().toLowerCase().contains("!giveaway")){

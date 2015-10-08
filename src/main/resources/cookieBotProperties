@@ -3,6 +3,15 @@
 # CookieBot
 # Created by BlockingHD and MrKickkiller
 #
+#
+
+# Modules
+modCommandsEnabled=true
+ranksEnabled=true
+userCommandsEnabled=true
+giveawayEnabled=true
+guessEnabled=true
+enableCalculator=true
 
 # Guessing
 
@@ -12,13 +21,14 @@ amountOfCookiesWon=20
 # Cookies
 
 # in milliseconds
+
+cookieGiverEnabled=true
 timeBetweenCookieGiveaway=30000
 cookiesGivenOut=1
 
 # commands
+
 showViewersCommandList=true
 commandListURL=http://pastebin.com/QkHzdTRv
-
-enableCalculator=true
 
 
