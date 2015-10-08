@@ -27,7 +27,6 @@ public class GiveAway extends ListenerAdapter<PircBotX> {
             return;
         }
         String username = event.getUser().getNick().toLowerCase().trim();
-        System.out.println(event.getMessage());
 
         if (event.getMessage().toLowerCase().startsWith("!giveaway")){
             System.out.println("Giveaway");
