@@ -32,7 +32,7 @@ public class CookieBotMain {
         loadProperties();
     }
 
-    public static final boolean devModeOn = false;
+    public static final boolean devModeOn = true;
 
     Configuration<PircBotX> twitch = new Configuration.Builder<PircBotX>()
             .setName(NAME)

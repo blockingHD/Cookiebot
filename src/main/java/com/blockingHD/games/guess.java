@@ -66,7 +66,7 @@ public class guess extends ListenerAdapter<PircBotX> {
                     CDBM.addCookiesToUser(username.trim(), amountOfCookiesWon);
                     isDone = true;
                 } else if (isDone) {
-                    event.getChannel().send().message("Sorry the cookies have been taken ,better luck next time " + username + ".");
+                    event.getChannel().send().message("Sorry the cookies have been taken, better luck next time " + username + ".");
                 } else if (users.contains(username)) {
                     event.getChannel().send().message("You have already guessed " + username + ".");
                 } else {
