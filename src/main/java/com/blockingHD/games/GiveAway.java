@@ -26,10 +26,10 @@ public class GiveAway extends ListenerAdapter<PircBotX> {
         if (!enabled){
             return;
         }
-        String username = event.getUser().getNick().toLowerCase();
+        String username = event.getUser().getNick().toLowerCase().trim();
 
         if (event.getMessage().toLowerCase().contains("!giveaway")){
-            if (CDBM.getModStatusForPerson(username)) {
+            if (CDBM.isPersonAlreadyInDatabase(username) && CDBM.getModStatusForPerson(username)) {
                 keyword = event.getMessage().replace("!giveaway", "").trim();
                 hasStarted = true;
                 if (!keyword.isEmpty()) {
@@ -38,13 +38,17 @@ public class GiveAway extends ListenerAdapter<PircBotX> {
             }
         }else if (hasStarted && !keyword.isEmpty()){
             if (event.getMessage().toLowerCase().contains(keyword)) {
-                if (CDBM.getCookieAmountForPerson(username) >= 10 && !users.contains(username)) {
+                if (CDBM.isPersonAlreadyInDatabase(username) && CDBM.getCookieAmountForPerson(username) >= 10 && !users.contains(username)) {
                     CDBM.takeCookiesFromUser(username, 10);
                     users.add(username);
                 }
             }
         }else if (event.getMessage().contains("!drawgiveaway")){
-            if (CDBM.getModStatusForPerson(username) && hasStarted){
+            if (CDBM.isPersonAlreadyInDatabase(username) && CDBM.getModStatusForPerson(username) && hasStarted){
+                if (users.isEmpty()){
+                    event.getChannel().send().message("Nobody entered the giveaway! :'(");
+                    return;
+                }
                 int rand = new Random().nextInt(users.size());
 
                 String winner = users.get(rand);
