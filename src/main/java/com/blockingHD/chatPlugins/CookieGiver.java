@@ -21,10 +21,14 @@ public class CookieGiver extends ListenerAdapter<PircBotX> {
 
     int timeBetweenCookieGiveAway = Integer.parseInt(CookieBotMain.prop.getProperty("timeBetweenCookieGiveaway"));
     int cookiesGivenOut = Integer.parseInt(CookieBotMain.prop.getProperty("cookiesGivenOut"));
+    boolean enabled = Boolean.parseBoolean(CookieBotMain.prop.getProperty("cookieGiverEnabled"));
 
 
     @Override
     public void onMessage(final MessageEvent<PircBotX> event) throws Exception {
+        if (! enabled){
+            return;
+        }
         String message = event.getMessage();
         User caller = event.getUser();
         if (message.toLowerCase().startsWith("!startstream") &&

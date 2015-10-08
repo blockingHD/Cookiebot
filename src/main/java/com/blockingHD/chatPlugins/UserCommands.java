@@ -1,5 +1,6 @@
 package com.blockingHD.chatPlugins;
 
+import com.blockingHD.CookieBotMain;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -15,12 +16,18 @@ public class UserCommands extends ListenerAdapter<PircBotX> {
     String commandlist = prop.getProperty("commandListURL");
     String commandEnable = prop.getProperty("showViewersCommandList");
 
+    boolean enabled = Boolean.parseBoolean(CookieBotMain.prop.getProperty("userCommandsEnabled"));
+
+
     //To Do: add commands and returns to props file
     
     @Override
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
+        if (!enabled){
+            return;
+        }
         if(event.getMessage().equalsIgnoreCase("!hello")) {
-            event.getChannel().send().message(".w " + event.getUser().getNick() + " Hi how are you today?");
+            event.getChannel().send().message(event.getUser().getNick() + " Hi how are you today?");
         }else if(event.getMessage().startsWith("!cookies give")){
             // !cookies give username amount
             String receiverAndCount = event.getMessage().replace("!cookies give","").trim();

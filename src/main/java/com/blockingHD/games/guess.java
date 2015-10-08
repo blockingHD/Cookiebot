@@ -1,5 +1,6 @@
 package com.blockingHD.games;
 
+import com.blockingHD.CookieBotMain;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -17,12 +18,18 @@ public class guess extends ListenerAdapter<PircBotX> {
     int maxGuessingNumber = Integer.parseInt(prop.getProperty("maxGuessAmount"));
     int amountOfCookiesWon = Integer.parseInt(prop.getProperty("amountOfCookiesWon"));
 
+    boolean enabled = Boolean.parseBoolean(CookieBotMain.prop.getProperty("guessEnabled"));
+
     int rand = new Random().nextInt(maxGuessingNumber);
     boolean isDone;
     List<String> users = new ArrayList<String>();
 
     @Override
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
+        if (!enabled){
+            return;
+        }
+
         String username = event.getUser().getNick();
 
         // Moderator resets the Guess-ing
