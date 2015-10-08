@@ -1,4 +1,5 @@
-/src/main/java/com/blockingHD/databaseCookies.sqlite
+/src/main/resources/databaseCookies.sqlite
+
 *.iml
 /target
 /src/main/java/com/blockingHD/Referance.java
