@@ -32,7 +32,7 @@ public class CookieBotMain {
         loadProperties();
     }
 
-    public static final boolean devModeOn = true;
+    public static final boolean devModeOn = false;
 
     Configuration<PircBotX> twitch = new Configuration.Builder<PircBotX>()
             .setName(NAME)
@@ -76,11 +76,9 @@ public class CookieBotMain {
     public static void loadProperties(){
         String url = "cookieBotProperties";
         if (devModeOn){
-            System.out.println("T");
             url = "src/main/resources/" + url;
 
         }
-        System.out.println(url);
         try (InputStream inputStream = new FileInputStream(url)){
             prop.load(inputStream);
         } catch (IOException e) {
