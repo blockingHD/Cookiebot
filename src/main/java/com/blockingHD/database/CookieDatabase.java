@@ -19,14 +19,14 @@ public class CookieDatabase implements AutoCloseable, IDatabase<StreamViewer>{
         try {
             // Get connection to the database
             // TODO:Make settable in config file
-            String url = "databaseCookies.sqlite";
+            String url = (String) CookieBotMain.prop.get("databaseURL");
             if (CookieBotMain.devModeOn){
                 url = "src/main/resources/" + url;
             }
+            System.out.println(url);
             conn = DriverManager.getConnection("jdbc:sqlite:" + url);
 
 //            // Clear the current table (For testing purposes)
-//            // TODO: Make table persistent
 //            // Mod status: 0 == Normal, 1 == Mod ; Default value == 0;
 //            conn.prepareStatement("drop TABLE if EXISTS cookies").execute();
 //            conn.prepareStatement("CREATE TABLE cookies(username NAME, cookies int, modstatus INT DEFAULT 0)").execute();
