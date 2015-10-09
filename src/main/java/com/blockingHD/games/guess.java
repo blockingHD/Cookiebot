@@ -38,7 +38,6 @@ public class guess extends ListenerAdapter<PircBotX> {
                 CDBM.getModStatusForPerson(username.trim())){
 
             rand = new Random().nextInt(maxGuessingNumber);
-            System.out.print(rand);
             users.clear();
             isDone = false;
             event.getChannel().send().message("A new round of cookie-guessing has begon. Get to them before Loneztar does!");

@@ -19,17 +19,18 @@ public class UserCommands extends ListenerAdapter<PircBotX> {
     boolean enabled = Boolean.parseBoolean(CookieBotMain.prop.getProperty("userCommandsEnabled"));
 
 
-    //To Do: add commands and returns to props file
+    //TODO: add commands and returns to props file.
     
     @Override
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
         if (!enabled){
             return;
         }
+        //Test command.
         if(event.getMessage().equalsIgnoreCase("!hello")) {
             event.getChannel().send().message(event.getUser().getNick() + " Hi how are you today?");
         }else if(event.getMessage().startsWith("!cookies give")){
-            // !cookies give username amount
+            // !cookies give username amount.
             String receiverAndCount = event.getMessage().replace("!cookies give","").trim();
             String receiver = receiverAndCount.split(" ")[0];
             int amount = Integer.parseInt(receiverAndCount.split(" ")[1]);
@@ -66,6 +67,8 @@ public class UserCommands extends ListenerAdapter<PircBotX> {
             }
             int amount = CDBM.getCookieAmountForPerson(username);
             event.getChannel().send().message(username + " has " + amount + " cookies in their secret stash");
+
+        // Basic calculator.
         }else if (event.getMessage().startsWith("!cal") && calculator.equalsIgnoreCase("true")){
 
             String[] calculation = event.getMessage().replace("!cal", "").trim().split("");
