@@ -29,7 +29,6 @@ public class GiveAway extends ListenerAdapter<PircBotX> {
         String username = event.getUser().getNick().toLowerCase().trim();
 
         if (event.getMessage().toLowerCase().startsWith("!giveaway")){
-            System.out.println("Giveaway");
             if (CDBM.isPersonAlreadyInDatabase(username) && CDBM.getModStatusForPerson(username)) {
                 keyword = event.getMessage().replace("!giveaway", "").toLowerCase().trim();
 
