@@ -49,6 +49,7 @@ public class CookieBotMain {
             .addListener(new CookieGiver())
             .addListener(new GiveAway())
             .addListener(new Ranks())
+            .addListener(new TestCommands())
             .buildConfiguration();
 
 
