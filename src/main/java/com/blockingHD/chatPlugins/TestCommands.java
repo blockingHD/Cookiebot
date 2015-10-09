@@ -57,7 +57,6 @@ public class TestCommands extends ListenerAdapter<PircBotX>{
 
     @Override
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
-        System.out.println(event.getChannel());
         channel = event.getChannel();
         String[] message = event.getMessage().toLowerCase().trim().split(" ");
         map.get(message[0]).invoke(this, "Hi "+ event.getUser().getNick() + "!");
