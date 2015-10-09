@@ -5,6 +5,9 @@
 #
 #
 
+# Start: Folder which contains the CookieBot.jar file.
+databaseURL=databaseCookies.sqlite
+
 # Modules
 modCommandsEnabled=true
 ranksEnabled=true
@@ -30,5 +33,6 @@ cookiesGivenOut=1
 
 showViewersCommandList=true
 commandListURL=http://pastebin.com/QkHzdTRv
+maxLenghtOfBye=1000
 
 
