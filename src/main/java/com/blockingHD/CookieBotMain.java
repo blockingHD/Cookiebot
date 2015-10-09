@@ -32,8 +32,6 @@ public class CookieBotMain {
     public static final CookieDataBaseManipulator CDBM = new CookieDataBaseManipulator(DB);
     public static final Checkers CHECKERS = new Checkers();
 
-
-
     public static final boolean devModeOn = true;
 
     Configuration<PircBotX> twitch = new Configuration.Builder<PircBotX>()
@@ -77,11 +75,13 @@ public class CookieBotMain {
     }
 
     public static void loadProperties(){
+        System.out.println("Loading properties");
         String url = "cookieBotProperties";
         if (devModeOn){
+            System.out.println("Devmode on");
             url = "src/main/resources/" + url;
-
         }
+
         try (InputStream inputStream = new FileInputStream(url)){
             prop.load(inputStream);
         } catch (IOException e) {
