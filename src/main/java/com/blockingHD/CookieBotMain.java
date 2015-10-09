@@ -1,16 +1,19 @@
 package com.blockingHD;
 
-import com.blockingHD.chatPlugins.DatabaseUpdater;
-import com.blockingHD.chatPlugins.ModCommands;
-import com.blockingHD.chatPlugins.UserCommands;
+import com.blockingHD.chatPlugins.*;
 import com.blockingHD.database.CookieDataBaseManipulator;
 import com.blockingHD.database.CookieDatabase;
+import com.blockingHD.games.GiveAway;
 import com.blockingHD.games.guess;
+import com.blockingHD.utills.Checkers;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.exception.IrcException;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 import static com.blockingHD.Referance.*;
 
@@ -21,6 +24,15 @@ public class CookieBotMain {
 
     public static final CookieDatabase DB = new CookieDatabase();
     public static final CookieDataBaseManipulator CDBM = new CookieDataBaseManipulator(DB);
+    public static final Checkers CHECKERS = new Checkers();
+
+    public static final Properties prop = new Properties();
+
+    static {
+        loadProperties();
+    }
+
+    public static final boolean devModeOn = true;
 
     Configuration<PircBotX> twitch = new Configuration.Builder<PircBotX>()
             .setName(NAME)
@@ -34,11 +46,15 @@ public class CookieBotMain {
             .addListener(new guess())
             .addListener(new ModCommands())
             .addListener(new DatabaseUpdater())
+            .addListener(new CookieGiver())
+            .addListener(new GiveAway())
+            .addListener(new Ranks())
             .buildConfiguration();
 
 
     public CookieBotMain(){
         PircBotX bot = new PircBotX(twitch);
+
         try {
             bot.startBot();
         } catch (IOException | IrcException e) {
@@ -54,5 +70,19 @@ public class CookieBotMain {
         System.out.println("Notify MrKickkiller or BlockingHD this happened.");
         System.out.println("You should provide a log of what happened in the last 10 minutes!");
         System.out.println("Use a github gist or a pastebin for this!");
+
+    }
+
+    public static void loadProperties(){
+        String url = "cookieBotProperties";
+        if (devModeOn){
+            url = "src/main/resources/" + url;
+
+        }
+        try (InputStream inputStream = new FileInputStream(url)){
+            prop.load(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

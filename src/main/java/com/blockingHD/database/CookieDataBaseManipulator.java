@@ -40,7 +40,10 @@ public class CookieDataBaseManipulator {
         try {
             PreparedStatement ps = conn.prepareStatement("SELECT * from cookies where username like ?");
             ps.setString(1,username.trim());
-            List<StreamViewer> result =  database.executeSQLStatement(ps);
+            List<StreamViewer> result = (List<StreamViewer>)  database.executeSQLStatement(ps);
+            if (result.size() == 0){
+                throw new UserNotFoundException("Couldn't find user in database");
+            }
             return result.get(0).getCookieCount();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -58,7 +61,10 @@ public class CookieDataBaseManipulator {
         try {
             PreparedStatement ps = conn.prepareStatement("SELECT * from cookies where username like ?");
             ps.setString(1,username.trim());
-            List<StreamViewer> result =  database.executeSQLStatement(ps);
+            List<StreamViewer> result =  (List<StreamViewer>) database.executeSQLStatement(ps);
+            if (result.size() == 0){
+                throw new UserNotFoundException("Couldn't find user in database");
+            }
             return result.get(0).isModStatus();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -99,9 +105,7 @@ public class CookieDataBaseManipulator {
     }
 
     public boolean addCookiesToUser(String username, int delta){
-        int current = 0;
-
-
+        int current;
         try {
             current = getCookieAmountForPerson(username.trim());
         } catch (UserNotFoundException e) {
@@ -124,7 +128,7 @@ public class CookieDataBaseManipulator {
     }
 
     public boolean takeCookiesFromUser(String username, int delta) throws OutOfCookieException {
-        int current = 0;
+        int current;
 
         try {
             current = getCookieAmountForPerson(username.trim());
@@ -133,7 +137,8 @@ public class CookieDataBaseManipulator {
             return false;
         }
         if (current - delta < 0){
-            throw new OutOfCookieException("You don't have enough cookies to buy this!");
+            //throw new OutOfCookieException("You don't have enough cookies to buy this!");
+            return false;
         }else {
             Connection conn = database.getConnection();
             try {
@@ -150,9 +155,9 @@ public class CookieDataBaseManipulator {
         }
     }
 
-    public void addOneCookieToAllCurrentViewers(ArrayList<String> usernames){
+    public void addCookiesToAllCurrentViewers(ArrayList<String> usernames,int bonuscookies){
         for (String s : usernames){
-            addCookiesToUser(s, 1);
+            addCookiesToUser(s, bonuscookies);
         }
     }
 

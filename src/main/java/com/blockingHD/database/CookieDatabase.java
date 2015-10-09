@@ -1,5 +1,7 @@
 package com.blockingHD.database;
 
+import com.blockingHD.CookieBotMain;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,23 +19,28 @@ public class CookieDatabase implements AutoCloseable, IDatabase<StreamViewer>{
         try {
             // Get connection to the database
             // TODO:Make settable in config file
-            conn = DriverManager.getConnection("jdbc:sqlite:src/main/java/com/blockingHD/databaseCookies.sqlite");
+            String url = "databaseCookies.sqlite";
+            if (CookieBotMain.devModeOn){
+                url = "src/main/resources/" + url;
+            }
+            conn = DriverManager.getConnection("jdbc:sqlite:" + url);
 
-            // Clear the current table (For testing purposes)
-            // TODO: Make table persistent
-            // Mod status: 0 == Normal, 1 == Mod ; Default value == 0;
-            conn.prepareStatement("drop TABLE if EXISTS cookies").execute();
-            conn.prepareStatement("CREATE TABLE cookies(username NAME, cookies int, modstatus INT DEFAULT 0)").execute();
-
-            // Add a normal standard value (FOR TESTING)
-            //conn.prepareStatement("INSERT into cookies(username,cookies) VALUES('MrKickkiller',14)").execute();
-            conn.prepareStatement("INSERT into cookies(username,cookies) VALUES('BlockingHD',18)").execute();
-            conn.prepareStatement("INSERT into cookies(username,cookies) VALUES('Quetzi',22)").execute();
-            conn.prepareStatement("INSERT into cookies(username,cookies) VALUES('K4',26)").execute();
-            conn.prepareStatement("INSERT into cookies(username,cookies) VALUES('Loneztar',30)").execute();
-            conn.prepareStatement("INSERT into cookies(username,cookies) VALUES('iMarBot',34)").execute();
-            conn.prepareStatement("INSERT into cookies(username,cookies) VALUES('Danyo',38)").execute();
-            conn.prepareStatement("INSERT into cookies(username,cookies) VALUES('Amadornes',42)").execute();
+//            // Clear the current table (For testing purposes)
+//            // TODO: Make table persistent
+//            // Mod status: 0 == Normal, 1 == Mod ; Default value == 0;
+//            conn.prepareStatement("drop TABLE if EXISTS cookies").execute();
+//            conn.prepareStatement("CREATE TABLE cookies(username NAME, cookies int, modstatus INT DEFAULT 0)").execute();
+            conn.prepareStatement("CREATE TABLE IF NOT EXISTS cookies(username NAME , cookies int, modstatus INT DEFAULT 0) ").execute();
+//
+//            // Add a normal standard value (FOR TESTING)
+//            conn.prepareStatement("INSERT into cookies(username,cookies,modstatus) VALUES('mrkickkiller',14,1)").execute();
+//            conn.prepareStatement("INSERT into cookies(username,cookies) VALUES('BlockingHD',18)").execute();
+//            conn.prepareStatement("INSERT into cookies(username,cookies) VALUES('Quetzi',22)").execute();
+//            conn.prepareStatement("INSERT into cookies(username,cookies) VALUES('K4',26)").execute();
+//            conn.prepareStatement("INSERT into cookies(username,cookies) VALUES('Loneztar',30)").execute();
+//            conn.prepareStatement("INSERT into cookies(username,cookies) VALUES('iMarBot',34)").execute();
+//            conn.prepareStatement("INSERT into cookies(username,cookies) VALUES('Danyo',38)").execute();
+//            conn.prepareStatement("INSERT into cookies(username,cookies) VALUES('Amadornes',42)").execute();
 
         } catch (SQLException e) {
             e.printStackTrace();
