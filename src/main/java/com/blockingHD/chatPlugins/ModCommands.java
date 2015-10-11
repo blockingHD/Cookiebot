@@ -41,7 +41,6 @@ public class ModCommands extends ListenerAdapter<PircBotX> {
             //Takes a specified amount of cookies from a specified user.
             if (message.contains("!takecookies")){
                 String[] command = message.split(" ");
-
                 if (command.length == 3 && CHECKERS.isInt(command[2])){
                     if (CDBM.isPersonAlreadyInDatabase(command[1]) && CDBM.getCookieAmountForPerson(command[1]) >= Integer.parseInt(command[2])){
                         try {
@@ -57,7 +56,6 @@ public class ModCommands extends ListenerAdapter<PircBotX> {
             //Gives a specified amount of cookies to a specified user.
             if (message.contains("!givecookies")){
                 String[] command = message.split(" ");
-
                 if (command.length == 3){
                     if (CDBM.isPersonAlreadyInDatabase(command[1])){
                         try {
