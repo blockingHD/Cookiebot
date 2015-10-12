@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ranks>
+    <Rank>
+        <minimum>1</minimum>
+        <rankName>Rookie</rankName>
+    </Rank>
+    <Rank>
+        <minimum>10</minimum>
+        <rankName>Normal</rankName>
+    </Rank>
+    <Rank>
+        <minimum>100</minimum>
+        <rankName>Yo Momma</rankName>
+    </Rank>
+</Ranks>

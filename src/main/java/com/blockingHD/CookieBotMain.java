@@ -22,15 +22,15 @@ import static com.blockingHD.Referance.*;
  */
 public class CookieBotMain {
 
-    public static final CookieDatabase DB = new CookieDatabase();
-    public static final CookieDataBaseManipulator CDBM = new CookieDataBaseManipulator(DB);
-    public static final Checkers CHECKERS = new Checkers();
-
     public static final Properties prop = new Properties();
 
     static {
         loadProperties();
     }
+
+    public static final CookieDatabase DB = new CookieDatabase();
+    public static final CookieDataBaseManipulator CDBM = new CookieDataBaseManipulator(DB);
+    public static final Checkers CHECKERS = new Checkers();
 
     public static final boolean devModeOn = true;
 
@@ -48,7 +48,8 @@ public class CookieBotMain {
             .addListener(new DatabaseUpdater())
             .addListener(new CookieGiver())
             .addListener(new GiveAway())
-            .addListener(new Ranks())
+            .addListener(new RankCommand())
+            .addListener(new TestCommands())
             .buildConfiguration();
 
 
@@ -74,11 +75,13 @@ public class CookieBotMain {
     }
 
     public static void loadProperties(){
+        System.out.println("Loading properties");
         String url = "cookieBotProperties";
         if (devModeOn){
+            System.out.println("Devmode on");
             url = "src/main/resources/" + url;
-
         }
+
         try (InputStream inputStream = new FileInputStream(url)){
             prop.load(inputStream);
         } catch (IOException e) {

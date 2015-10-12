@@ -28,8 +28,8 @@ public class GiveAway extends ListenerAdapter<PircBotX> {
         }
         String username = event.getUser().getNick().toLowerCase().trim();
 
+        // Starts giveaway.
         if (event.getMessage().toLowerCase().startsWith("!giveaway")){
-            System.out.println("Giveaway");
             if (CDBM.isPersonAlreadyInDatabase(username) && CDBM.getModStatusForPerson(username)) {
                 keyword = event.getMessage().replace("!giveaway", "").toLowerCase().trim();
 
@@ -42,6 +42,8 @@ public class GiveAway extends ListenerAdapter<PircBotX> {
 
 
             }
+
+        //Draws the giveaway.
         }else if (event.getMessage().startsWith("!drawgiveaway")){
             if (CDBM.isPersonAlreadyInDatabase(username) && CDBM.getModStatusForPerson(username) && hasStarted){
                 if (users.isEmpty()){
@@ -53,6 +55,7 @@ public class GiveAway extends ListenerAdapter<PircBotX> {
                 event.getChannel().send().message("The winner of the giveaway is: " + winner + "!!!!!");
 
             }
+        //Checks for the keyword and enters them for the giveaway.
         }else if (hasStarted && !keyword.isEmpty()){
             if (event.getMessage().toLowerCase().contains(keyword)) {
                 if (CDBM.isPersonAlreadyInDatabase(username) && CDBM.getCookieAmountForPerson(username) >= 10 && !users.contains(username)) {
