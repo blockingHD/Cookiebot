@@ -30,9 +30,8 @@ public class RankCommand extends ListenerAdapter<PircBotX> {
             JAXBContext jc = JAXBContext.newInstance(Ranks.class);
             Unmarshaller unmarshaller = jc.createUnmarshaller();
             ranks = (Ranks) unmarshaller.unmarshal(new FileInputStream(url));
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
+        } catch (JAXBException  | FileNotFoundException e) {
+            CookieBotMain.printStaticMessageToAuthors();
             e.printStackTrace();
         }
         if (ranks == null){
@@ -56,7 +55,7 @@ public class RankCommand extends ListenerAdapter<PircBotX> {
         //Shows someones rank based for there cookie count.
         if (event.getMessage().startsWith("!rank")){
             String username = event.getUser().getNick();
-            username = username.replace("!rank","").trim().split(" ")[0];
+            username = username.replace("!rank","").trim().split(" ")[0].toLowerCase();
             if (CookieBotMain.CDBM.isPersonAlreadyInDatabase(username)){
                 int amountOfCookies = CookieBotMain.CDBM.getCookieAmountForPerson(username);
                 int tracker = 0;
