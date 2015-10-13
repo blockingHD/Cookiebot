@@ -6,7 +6,7 @@ import com.blockingHD.database.CookieDatabase;
 import com.blockingHD.games.Bidding;
 import com.blockingHD.games.GiveAway;
 import com.blockingHD.games.guess;
-import com.blockingHD.utills.Checkers;
+import com.blockingHD.utils.Checkers;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.exception.IrcException;

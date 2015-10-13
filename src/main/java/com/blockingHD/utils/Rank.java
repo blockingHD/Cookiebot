@@ -1,4 +1,4 @@
-package com.blockingHD.utills;
+package com.blockingHD.utils;
 
 /**
  * Created by Mathieu on 11/10/2015.

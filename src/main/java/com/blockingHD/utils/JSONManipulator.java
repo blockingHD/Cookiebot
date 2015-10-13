@@ -1,4 +1,4 @@
-package com.blockingHD.utills;
+package com.blockingHD.utils;
 
 import com.google.gson.Gson;
 

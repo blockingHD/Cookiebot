@@ -1,7 +1,7 @@
 package com.blockingHD.chatPlugins;
 
 import com.blockingHD.CookieBotMain;
-import com.blockingHD.utills.JSONManipulator;
+import com.blockingHD.utils.JSONManipulator;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;

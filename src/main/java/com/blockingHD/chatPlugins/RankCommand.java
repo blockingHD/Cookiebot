@@ -1,8 +1,8 @@
 package com.blockingHD.chatPlugins;
 
 import com.blockingHD.CookieBotMain;
-import com.blockingHD.utills.Rank;
-import com.blockingHD.utills.Ranks;
+import com.blockingHD.utils.Rank;
+import com.blockingHD.utils.Ranks;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
