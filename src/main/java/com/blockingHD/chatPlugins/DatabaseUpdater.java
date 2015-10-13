@@ -10,6 +10,7 @@ import org.pircbotx.hooks.events.MessageEvent;
  * Created by MrKickkiller on 5/10/2015.
  */
 public class DatabaseUpdater extends ListenerAdapter<PircBotX>{
+
     @Override
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
         String urlPart = event.getChannel().getName().replace("#","").toLowerCase().trim();

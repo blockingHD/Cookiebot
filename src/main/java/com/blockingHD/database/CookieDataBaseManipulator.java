@@ -39,7 +39,7 @@ public class CookieDataBaseManipulator {
         username = username.trim();
         try {
             PreparedStatement ps = conn.prepareStatement("SELECT * from cookies where username like ?");
-            ps.setString(1,username.trim());
+            ps.setString(1,username);
             List<StreamViewer> result = (List<StreamViewer>)  database.executeSQLStatement(ps);
             if (result.size() == 0){
                 throw new UserNotFoundException("Couldn't find user in database");

@@ -15,10 +15,15 @@ import static com.blockingHD.CookieBotMain.CDBM;
  */
 public class GiveAway extends ListenerAdapter<PircBotX> {
 
+    /*
+    * The enabled status of this module.
+     */
+    boolean enabled = Boolean.parseBoolean(CookieBotMain.prop.getProperty("giveawayEnabled"));
+
     String keyword;
     boolean hasStarted;
     ArrayList<String> users = new ArrayList<String>();
-    boolean enabled = Boolean.parseBoolean(CookieBotMain.prop.getProperty("giveawayEnabled"));
+
 
 
     @Override
@@ -26,6 +31,7 @@ public class GiveAway extends ListenerAdapter<PircBotX> {
         if (!enabled){
             return;
         }
+
         String username = event.getUser().getNick().toLowerCase().trim();
 
         // Starts giveaway.
@@ -39,12 +45,10 @@ public class GiveAway extends ListenerAdapter<PircBotX> {
                 }else {
                     event.getChannel().send().message("There was no keyword attached");
                 }
-
-
             }
 
         //Draws the giveaway.
-        }else if (event.getMessage().startsWith("!drawgiveaway")){
+        } else if (event.getMessage().startsWith("!drawgiveaway")){
             if (CDBM.isPersonAlreadyInDatabase(username) && CDBM.getModStatusForPerson(username) && hasStarted){
                 if (users.isEmpty()){
                     event.getChannel().send().message("Nobody entered the giveaway! :'(");

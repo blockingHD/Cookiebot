@@ -3,6 +3,7 @@ package com.blockingHD;
 import com.blockingHD.chatPlugins.*;
 import com.blockingHD.database.CookieDataBaseManipulator;
 import com.blockingHD.database.CookieDatabase;
+import com.blockingHD.games.Bidding;
 import com.blockingHD.games.GiveAway;
 import com.blockingHD.games.guess;
 import com.blockingHD.utills.Checkers;
@@ -50,6 +51,7 @@ public class CookieBotMain {
             .addListener(new GiveAway())
             .addListener(new RankCommand())
             .addListener(new TestCommands())
+            .addListener(new Bidding())
             .buildConfiguration();
 
 
