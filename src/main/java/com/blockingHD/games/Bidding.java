@@ -23,12 +23,14 @@ public class Bidding extends ListenerAdapter<PircBotX> {
         if (message.startsWith("!startbid") && CookieBotMain.CDBM.isPersonAlreadyInDatabase(username) && CookieBotMain.CDBM.getModStatusForPerson(username)){
             event.getChannel().send().message("Get your bids in!");
             biddingStarted = true;
-        }else if (message.startsWith("!stopbid") && CookieBotMain.CDBM.isPersonAlreadyInDatabase(username) &&CookieBotMain.CDBM.getModStatusForPerson(username)){
-            event.getChannel().send().message("The bidding has ended. " + username + " has won the prize with his bid of " + Integer.parseInt(message.replace("!bid","")) + ".");
+        }else if (message.startsWith("!stopbid") && CookieBotMain.CDBM.isPersonAlreadyInDatabase(username) && CookieBotMain.CDBM.getModStatusForPerson(username)){
+            event.getChannel().send().message("The bidding has ended. " + username + " has won the prize with his bid of " + currentBid + " cookies.");
+            CookieBotMain.CDBM.takeCookiesFromUser(username,currentBid);
+            currentBid = 0; currentTopUser = null;
             biddingStarted = false;
         }
         else if (message.startsWith("!bid") && biddingStarted){
-            int amount = Integer.parseInt(message.replace("!bid",""));
+            int amount = Integer.parseInt(message.replace("!bid","").trim());
             if (amount > currentBid && CookieBotMain.CDBM.isPersonAlreadyInDatabase(username) && CookieBotMain.CDBM.getCookieAmountForPerson(username) >= amount){
                 currentBid = amount;
                 currentTopUser = username;
