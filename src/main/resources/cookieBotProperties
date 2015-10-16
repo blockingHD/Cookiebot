@@ -35,4 +35,8 @@ showViewersCommandList=true
 commandListURL=http://pastebin.com/QkHzdTRv
 maxLenghtOfBye=1000
 
+# Bot conection
+username=blockingbot
+outhCode=null
+
 
