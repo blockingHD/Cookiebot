@@ -1,11 +1,8 @@
 package com.blockingHD;
 
-import com.blockingHD.chatPlugins.*;
+import com.blockingHD.commands.CommandHandler;
 import com.blockingHD.database.CookieDataBaseManipulator;
 import com.blockingHD.database.CookieDatabase;
-import com.blockingHD.games.Bidding;
-import com.blockingHD.games.GiveAway;
-import com.blockingHD.games.guess;
 import com.blockingHD.utils.Checkers;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
@@ -35,6 +32,7 @@ public class CookieBotMain {
 
     public static final boolean devModeOn = true;
 
+
     Configuration<PircBotX> twitch = new Configuration.Builder<PircBotX>()
             .setName(NAME)
             .setLogin(LONGIN)
@@ -43,15 +41,16 @@ public class CookieBotMain {
             .setServerHostname(HOST)
             .setServerPort(PORT)
             .addAutoJoinChannel(CHAN)
-            .addListener(new UserCommands())
-            .addListener(new guess())
-            .addListener(new ModCommands())
-            .addListener(new DatabaseUpdater())
-            .addListener(new CookieGiver())
-            .addListener(new GiveAway())
-            .addListener(new RankCommand())
-            .addListener(new TestCommands())
-            .addListener(new Bidding())
+//            .addListener(new UserCommands())
+//            .addListener(new guess())
+//            .addListener(new ModCommands())
+//            .addListener(new DatabaseUpdater())
+//            .addListener(new CookieGiver())
+//            .addListener(new GiveAway())
+//            .addListener(new RankCommand())
+//            .addListener(new TestCommands())
+//            .addListener(new Bidding())
+            .addListener(new CommandHandler())
             .buildConfiguration();
 
 

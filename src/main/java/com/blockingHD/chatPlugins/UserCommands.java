@@ -23,6 +23,7 @@ public class UserCommands extends ListenerAdapter<PircBotX> {
     
     @Override
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
+        long time = System.nanoTime();
         if (!enabled){
             return;
         }
@@ -91,6 +92,7 @@ public class UserCommands extends ListenerAdapter<PircBotX> {
             }
 
         }
+        System.out.println("IfTime = " + (System.nanoTime() - time));
     }
 
 }
