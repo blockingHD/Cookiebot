@@ -41,7 +41,7 @@ public class GiveAway extends ListenerAdapter<PircBotX> {
 
                 if (!keyword.isEmpty()) {
                     hasStarted = true;
-                    event.getChannel().send().message("Giveaway has started with the keyword: " + keyword + " .Type this in chat at the cost of 10 cookies!");
+                    event.getChannel().send().message("Giveaway has started with the keyword: " + keyword + ". Type this in chat at the cost of 10 cookies!");
                 }else {
                     event.getChannel().send().message("There was no keyword attached");
                 }

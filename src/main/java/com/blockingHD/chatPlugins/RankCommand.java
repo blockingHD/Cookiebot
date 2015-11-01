@@ -68,6 +68,8 @@ public class RankCommand extends ListenerAdapter<PircBotX> {
                 // Credit :P
                 if (username.equals("blockinghd") || username.equals("mrkickkiller")) {
                     event.getChannel().send().message(username + " is my creator!");
+                }else if (username.equals("jake_evans")){
+                    event.getChannel().send().message(username + " is demi-GOD");
                 // Channel name now automatically finds broadcaster.
                 }else if (username.equals(event.getChannel().getName().toLowerCase().trim().replace("#",""))) {
                     event.getChannel().send().message(username + " is GOD!");

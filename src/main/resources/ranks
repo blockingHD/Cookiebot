@@ -2,14 +2,19 @@
 <Ranks>
     <Rank>
         <minimum>1</minimum>
-        <rankName>Rookie</rankName>
-    </Rank>
-    <Rank>
-        <minimum>10</minimum>
-        <rankName>Normal</rankName>
+        <rankName>Rich Tea Biscuit</rankName>
     </Rank>
     <Rank>
         <minimum>100</minimum>
-        <rankName>Yo Momma</rankName>
+        <rankName>Oolong Tea Maker</rankName>
     </Rank>
+    <Rank>
+        <minimum>1000</minimum>
+        <rankName>Tea Bagger</rankName>
+    </Rank>
+    <Rank>
+        <minimum>9000</minimum>
+        <rankName>CookieMuncher</rankName>
+    </Rank>
+
 </Ranks>

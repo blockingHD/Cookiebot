@@ -59,7 +59,7 @@ public class guess extends ListenerAdapter<PircBotX> {
             if (CHECKERS.isInt(guess)) {
                 if (rand != Integer.parseInt(guess) && !isDone && !users.contains(username)) {
                     if ( 0 <= Integer.parseInt(guess) &&Integer.parseInt(guess) <= maxGuessingNumber) {
-                        event.getChannel().send().message("Sorry that is incorrect " + username + " ,better luck next time!");
+                        event.getChannel().send().message("Sorry that is incorrect " + username + ", better luck next time!");
                         users.add(username);
                     }else {
                         event.getChannel().send().message("Please choose a number between 0 and " + maxGuessingNumber);
