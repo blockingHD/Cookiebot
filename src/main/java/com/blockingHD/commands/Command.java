@@ -7,6 +7,6 @@ import org.pircbotx.hooks.events.MessageEvent;
  */
 public interface Command {
 
-    void execute(MessageEvent event, String[] args);
+    void execute(MessageEvent event, String[] args) throws Exception;
 
 }

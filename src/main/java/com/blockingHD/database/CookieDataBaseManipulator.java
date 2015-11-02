@@ -25,9 +25,9 @@ public class CookieDataBaseManipulator {
         changeMap.put(false,0);
     }
 
-    private IDatabase database;
+    private IDatabase<StreamViewer> database;
 
-    public CookieDataBaseManipulator(IDatabase database) {
+    public CookieDataBaseManipulator(IDatabase<StreamViewer> database) {
         this.database = database;
     }
 
@@ -40,7 +40,7 @@ public class CookieDataBaseManipulator {
         try {
             PreparedStatement ps = conn.prepareStatement("SELECT * from cookies where username like ?");
             ps.setString(1,username);
-            List<StreamViewer> result = (List<StreamViewer>)  database.executeSQLStatement(ps);
+            List<StreamViewer> result = database.executeSQLStatement(ps);
             if (result.size() == 0){
                 throw new UserNotFoundException("Couldn't find user in database");
             }
@@ -61,7 +61,7 @@ public class CookieDataBaseManipulator {
         try {
             PreparedStatement ps = conn.prepareStatement("SELECT * from cookies where username like ?");
             ps.setString(1,username.trim());
-            List<StreamViewer> result =  (List<StreamViewer>) database.executeSQLStatement(ps);
+            List<StreamViewer> result = database.executeSQLStatement(ps);
             if (result.size() == 0){
                 throw new UserNotFoundException("Couldn't find user in database");
             }
