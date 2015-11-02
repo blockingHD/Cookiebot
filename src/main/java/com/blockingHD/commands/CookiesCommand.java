@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 public class CookiesCommand implements Command {
 
     Pattern userMatcher = Pattern.compile("[^_][A-z0-9_]*");
-    Pattern numMatcher = Pattern.compile("[0-9]+");
 
     HashMap<String, Command> subCommandHashMap = new HashMap<>();
 
@@ -31,7 +30,10 @@ public class CookiesCommand implements Command {
             if (subCommandHashMap.containsKey(args[1]) && args.length > 2){
                 subCommandHashMap.get(args[1].toLowerCase()).execute(event,args);
             }
-            if (userMatcher.matcher(args[1].trim().toLowerCase()).matches()){
+            if (subCommandHashMap.containsKey(args[1]) && args.length == 2){
+                event.respond("Invalid Cookie-Command. Usage: !cookies < | give | take | add> <Username> <Amount >= 0>");
+            }
+            else if (userMatcher.matcher(args[1].trim().toLowerCase()).matches()){
                 // Secondary name was given
                 String amount = ck.getAmountOfCookies(args[1].trim().toLowerCase());
                 event.getChannel().send().message(args[1].trim() + " has " + amount + " cookies in their secret stash!");
@@ -55,8 +57,6 @@ public class CookiesCommand implements Command {
                     CookieBotMain.CDBM.takeCookiesFromUser(sender,amount);
                     CookieBotMain.CDBM.addCookiesToUser(receiver,amount);
                 }
-            }else {
-                event.respond("Invalid Cookie-Command. Usage: !cookies < | give | take | add> <Username> <Amount >= 0>");
             }
         }
 
@@ -73,8 +73,6 @@ public class CookiesCommand implements Command {
                 if (CookieBotMain.CDBM.getModStatusForPerson(sender)){
                     CookieBotMain.CDBM.takeCookiesFromUser(receiver, amount);
                 }
-            }else {
-                event.respond("Invalid Cookie-Command. Usage: !cookies < | give | take | add> <Username> <Amount >= 0>");
             }
         }
     }
@@ -90,8 +88,6 @@ public class CookiesCommand implements Command {
                 if (CookieBotMain.CDBM.getModStatusForPerson(sender)){
                     CookieBotMain.CDBM.addCookiesToUser(receiver, amount);
                 }
-            }else {
-                event.respond("Invalid Cookie-Command. Usage: !cookies < | give | take | add> <Username> <Amount >= 0>");
             }
         }
     }
