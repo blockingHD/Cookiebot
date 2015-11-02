@@ -10,7 +10,10 @@ public class CookieKeeper {
 
     private CookieDataBaseManipulator db = CookieBotMain.CDBM;
 
-    public int getAmountOfCookies(String username){
-        return (db.isPersonAlreadyInDatabase(username)) ? db.getCookieAmountForPerson(username) : null;
+    public String getAmountOfCookies(String username){
+        if (!db.isPersonAlreadyInDatabase(username)){
+            return "an unknown number of";
+        }
+        return String.valueOf(db.getCookieAmountForPerson(username));
     }
 }
