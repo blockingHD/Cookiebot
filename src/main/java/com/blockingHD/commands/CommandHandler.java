@@ -1,5 +1,6 @@
 package com.blockingHD.commands;
 
+import com.blockingHD.chatPlugins.BiddingModule;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -20,6 +21,11 @@ public class CommandHandler extends ListenerAdapter<PircBotX> {
         stringCommandHashMap.put("!mod", new ModCommand());
         stringCommandHashMap.put("!unmod", new UnmodCommand());
         stringCommandHashMap.put("!rank", new RankCommand());
+
+        BiddingModule biddingModule = new BiddingModule();
+
+        stringCommandHashMap.put("!bidding", new BiddingCommand(biddingModule));
+        stringCommandHashMap.put("!bid", new BidCommand(biddingModule));
     }
 
     @Override
