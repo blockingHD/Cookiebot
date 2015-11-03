@@ -19,6 +19,7 @@ public class CommandHandler extends ListenerAdapter<PircBotX> {
         stringCommandHashMap.put("!calc", new CalculatorCommand());
         stringCommandHashMap.put("!mod", new ModCommand());
         stringCommandHashMap.put("!unmod", new UnmodCommand());
+        stringCommandHashMap.put("!rank", new RankCommand());
     }
 
     @Override

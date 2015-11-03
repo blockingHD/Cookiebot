@@ -1,4 +1,4 @@
-package com.blockingHD.commands;
+package com.blockingHD.chatPlugins;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;

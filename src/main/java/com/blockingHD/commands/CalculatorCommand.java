@@ -1,5 +1,6 @@
 package com.blockingHD.commands;
 
+import com.blockingHD.chatPlugins.Calculator;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import java.util.regex.Pattern;
@@ -19,7 +20,6 @@ public class CalculatorCommand implements Command {
                 ask += args[i];
             }
         }
-        System.out.println(ask);
         String result = calc.getValue(ask);
         event.respond("The answer is " + result);
     }
