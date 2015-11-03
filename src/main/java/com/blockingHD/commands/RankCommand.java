@@ -54,7 +54,7 @@ public class RankCommand implements Command{
         }
 
 
-        //tributeMap.put("mrkickkiller", " creator");
+        tributeMap.put("mrkickkiller", " creator");
         tributeMap.put("blockinghd", " creator");
         //TODO: XML to set custom tribute tags.
     }
