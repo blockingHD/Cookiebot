@@ -7,7 +7,7 @@ import org.pircbotx.hooks.events.MessageEvent;
 import java.util.HashMap;
 
 /**
- * Created by Mathieu on 3/11/2015.
+ * Created by MrKickkiller on 3/11/2015.
  */
 public class BiddingCommand implements Command {
 
