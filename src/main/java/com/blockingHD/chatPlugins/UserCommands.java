@@ -10,6 +10,7 @@ import static com.blockingHD.CookieBotMain.*;
 /**
  * Created by blockingHD on 03/10/2015.
  */
+@Deprecated
 public class UserCommands extends ListenerAdapter<PircBotX> {
 
     String calculator = prop.getProperty("enableCalculator");

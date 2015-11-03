@@ -11,6 +11,7 @@ import static com.blockingHD.CookieBotMain.CHECKERS;
 /**
  * Created by blockingHD on 05/10/2015.
  */
+@Deprecated
 public class ModCommands extends ListenerAdapter<PircBotX> {
     boolean enabled = Boolean.parseBoolean(CookieBotMain.prop.getProperty("modCommandsEnabled"));
 
