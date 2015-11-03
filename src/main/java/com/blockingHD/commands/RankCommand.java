@@ -3,7 +3,6 @@ package com.blockingHD.commands;
 import com.blockingHD.CookieBotMain;
 import com.blockingHD.utils.Rank;
 import com.blockingHD.utils.Ranks;
-import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import javax.xml.bind.JAXBContext;
@@ -27,6 +26,8 @@ public class RankCommand implements Command{
 
     Map<String,String> tributeMap = new HashMap<>();
 
+    Pattern userMatcher = Pattern.compile("[^_][A-z0-9_]*");
+
     public RankCommand() {
         Ranks ranks = null;
         String url = "ranks";
@@ -35,7 +36,6 @@ public class RankCommand implements Command{
         }
 
         // Load in the Java-Objects from XML
-
         try {
             JAXBContext jc = JAXBContext.newInstance(Ranks.class);
             Unmarshaller unmarshaller = jc.createUnmarshaller();
@@ -57,47 +57,20 @@ public class RankCommand implements Command{
         tributeMap.put("mrkickkiller", " creator");
         tributeMap.put("blockinghd", " creator");
         //TODO: XML to set custom tribute tags.
+        tributeMap.put("loneztar", "GOD");
+        tributeMap.put("jake-evans", "Demi - God");
     }
 
-    @Deprecated
-    private void onMessage(MessageEvent<PircBotX> event) throws Exception {
-        if (!enabled){
-            return;
-        }
 
-        //Shows someone's rank based on their cookie count
-        if (event.getMessage().startsWith("!rank")){
-            String username = event.getUser().getNick();
-            username = username.replace("!rank","").trim().split(" ")[0].toLowerCase();
-            if (CookieBotMain.CDBM.isPersonAlreadyInDatabase(username)){
-                int amountOfCookies = CookieBotMain.CDBM.getCookieAmountForPerson(username);
-                int tracker = 0;
-                while ( (Integer) map.descendingKeySet().toArray()[tracker] > amountOfCookies){
-                    tracker ++;
-                }
-                // Credit :P
-                if (username.equals("blockinghd") || username.equals("mrkickkiller")) {
-                    event.getChannel().send().message(username + " is my creator!");
-                }else if (username.equals("jake_evans")){
-                    event.getChannel().send().message(username + " is demi-GOD");
-                // Channel name now automatically finds broadcaster.
-                }else if (username.equals(event.getChannel().getName().toLowerCase().trim().replace("#",""))) {
-                    event.getChannel().send().message(username + " is GOD!");
-                }else {
-                    event.getChannel().send().message(username + " is a " + map.get(map.descendingKeySet().toArray()[tracker]));
-                }
-            }
-        }
-    }
-
-    Pattern userMatcher = Pattern.compile("[^_][A-z0-9_]*");
 
     @Override
     public void execute(MessageEvent event, String[] args) throws Exception {
-        String userName = event.getUser().getNick().toLowerCase().trim();
+        String userName = event.getUser().getNick();
+        //Secondary name was given
         if (args.length > 1 && userMatcher.matcher(args[1]).matches()){
-            userName = args[1].toLowerCase().trim();
+            userName = args[1];
         }
+        userName = userName.toLowerCase().trim();
         if (tributeMap.containsKey(userName)){
             event.getChannel().send().message(userName + " is a " + tributeMap.get(userName));
         }else if (CookieBotMain.CDBM.isPersonAlreadyInDatabase(userName)){
