@@ -65,6 +65,11 @@ public class BiddingCommand implements Command {
 
         @Override
         public void execute(MessageEvent event, String[] args) throws Exception {
+            event.getChannel().send().message("Going for the first time");
+            Thread.sleep(500);
+            event.getChannel().send().message("Going for the second time");
+            Thread.sleep(500);
+            event.getChannel().send().message("Sold");
             String username = biddingModule.getTopBidderName();
             int amount = biddingModule.getTopBidAmount();
             if (biddingModule.executeBid()){
