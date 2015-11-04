@@ -27,11 +27,11 @@ public class CookiesCommand implements Command {
 
     public void execute(MessageEvent event, String[] args) throws Exception {
         if (args.length > 1){
-            if (subCommandHashMap.containsKey(args[1]) && args.length > 2){
-                subCommandHashMap.get(args[1].toLowerCase()).execute(event,args);
-            }
             if (subCommandHashMap.containsKey(args[1]) && args.length == 2){
                 event.respond("Invalid Cookie-Command. Usage: !cookies < | give | take | add> <Username> <Amount >= 0>");
+            }
+            if (subCommandHashMap.containsKey(args[1]) && args.length > 2){
+                subCommandHashMap.get(args[1].toLowerCase()).execute(event,args);
             }
             else if (userMatcher.matcher(args[1].trim().toLowerCase()).matches()){
                 // Secondary name was given
