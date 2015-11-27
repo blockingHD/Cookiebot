@@ -42,15 +42,7 @@ public class CookieBotMain {
             .setServerHostname(HOST)
             .setServerPort(PORT)
             .addAutoJoinChannel(CHAN)
-//            .addListener(new UserCommands())
-//            .addListener(new guess())
-//            .addListener(new ModCommands())
             .addListener(new DatabaseUpdater())
-//            .addListener(new CookieGiver())
-//            .addListener(new GiveAway())
-//            .addListener(new RankCommand())
-//            .addListener(new TestCommands())
-//            .addListener(new Bidding())
             .addListener(new CommandHandler())
             .buildConfiguration();
 
