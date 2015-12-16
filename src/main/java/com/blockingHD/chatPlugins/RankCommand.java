@@ -17,6 +17,7 @@ import java.util.TreeMap;
 /**
  * Created by MrKickkiller on 7/10/2015.
  */
+@Deprecated
 public class RankCommand extends ListenerAdapter<PircBotX> {
 
     static TreeMap<Integer,String> map = new TreeMap<>();

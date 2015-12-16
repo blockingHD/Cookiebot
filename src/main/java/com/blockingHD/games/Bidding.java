@@ -8,6 +8,7 @@ import org.pircbotx.hooks.events.MessageEvent;
 /**
  * Created by MrKickkiller on 13/10/2015
  */
+@Deprecated
 public class Bidding extends ListenerAdapter<PircBotX> {
 
     String currentTopUser;

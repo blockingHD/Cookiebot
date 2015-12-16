@@ -10,6 +10,7 @@ import static com.blockingHD.CookieBotMain.*;
 /**
  * Created by blockingHD on 03/10/2015.
  */
+@Deprecated
 public class UserCommands extends ListenerAdapter<PircBotX> {
 
     String calculator = prop.getProperty("enableCalculator");
@@ -23,6 +24,7 @@ public class UserCommands extends ListenerAdapter<PircBotX> {
     
     @Override
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
+        long time = System.nanoTime();
         if (!enabled){
             return;
         }
@@ -91,6 +93,7 @@ public class UserCommands extends ListenerAdapter<PircBotX> {
             }
 
         }
+        System.out.println("IfTime = " + (System.nanoTime() - time));
     }
 
 }

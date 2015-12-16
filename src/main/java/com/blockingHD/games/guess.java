@@ -14,6 +14,7 @@ import static com.blockingHD.CookieBotMain.*;
 /**
  * Created by blockingHD on 04/10/2015.
  */
+@Deprecated
 public class guess extends ListenerAdapter<PircBotX> {
     /*
     * Settings for this module

@@ -18,6 +18,7 @@ import java.util.List;
  * Contains test code with proposed re-working method for all commands.
  * Functionality based on java.lang.reflection
  */
+@Deprecated
 public class TestCommands extends ListenerAdapter<PircBotX>{
 
     private HashMap<String,Method> map = new HashMap<>();
