@@ -48,7 +48,7 @@ public class CookieGiver2 {
                 }
             }
             // 3 secs ==> 30 secs
-        },0, 3000);
+        },0, 30000);
 
     }
 }
