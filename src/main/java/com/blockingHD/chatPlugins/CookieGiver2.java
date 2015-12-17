@@ -21,6 +21,11 @@ public class CookieGiver2 {
     int counter;
 
     public CookieGiver2() {
+        setTimer();
+
+    }
+
+    private void setTimer(){
         checker.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -38,8 +43,12 @@ public class CookieGiver2 {
                             }
                         }, 0 ,timeBetweenCookieGiveAway);
 
-                    }catch (IllegalStateException e){
-
+                    }catch (Exception e){
+                        // Because suspicion that whenever something goes wrong the timer stops.
+                        checker.cancel();
+                        giver.cancel();
+                        giverOn=false;
+                        setTimer();
                     }
                     giverOn = true;
                 } else if (!live && giverOn){
@@ -49,6 +58,5 @@ public class CookieGiver2 {
             }
             // 3 secs ==> 30 secs
         },0, 30000);
-
     }
 }
