@@ -3,7 +3,9 @@ package com.blockingHD.utils;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -32,5 +34,18 @@ public class JSONManipulator {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static boolean isStreamLive (String url){
+        try {
+            Gson gson = new Gson();
+            KrakenStreamReturn streamReturn = gson.fromJson(new BufferedReader(new InputStreamReader(new URL(url).openStream())), KrakenStreamReturn.class);
+            return streamReturn.stream != null ||streamReturn.getStream() != null;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
