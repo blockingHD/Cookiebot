@@ -30,6 +30,8 @@ public class CommandHandler extends ListenerAdapter<PircBotX> {
         stringCommandHashMap.put("!commands", new CommandsCommand());
 
         stringCommandHashMap.put("!guess", new GuessCommand());
+
+        stringCommandHashMap.put("!giveaway", new GiveAwayCommand());
     }
 
     @Override

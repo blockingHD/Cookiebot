@@ -13,6 +13,7 @@ import static com.blockingHD.CookieBotMain.CDBM;
 /**
  * Created by blockingHD on 06/10/2015.
  */
+@Deprecated
 public class GiveAway extends ListenerAdapter<PircBotX> {
 
     /*
@@ -23,8 +24,6 @@ public class GiveAway extends ListenerAdapter<PircBotX> {
     String keyword;
     boolean hasStarted;
     ArrayList<String> users = new ArrayList<String>();
-
-
 
     @Override
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
