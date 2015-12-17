@@ -1,5 +1,6 @@
 package com.blockingHD;
 
+import com.blockingHD.chatPlugins.CookieGiver2;
 import com.blockingHD.chatPlugins.DatabaseUpdater;
 import com.blockingHD.commands.CommandHandler;
 import com.blockingHD.database.CookieDataBaseManipulator;
@@ -33,6 +34,7 @@ public class CookieBotMain {
 
     public static final boolean devModeOn = true;
 
+    CookieGiver2 cg = new CookieGiver2();
 
     Configuration<PircBotX> twitch = new Configuration.Builder<PircBotX>()
             .setName(NAME)
