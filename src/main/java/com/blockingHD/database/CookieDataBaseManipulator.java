@@ -110,6 +110,7 @@ public class CookieDataBaseManipulator {
             current = getCookieAmountForPerson(username.trim());
         } catch (UserNotFoundException e) {
             System.out.println(username + " was not found in the database. Check the spelling and try again.");
+            initPersonInDatabase(username);
             return false;
         }
 
@@ -134,6 +135,7 @@ public class CookieDataBaseManipulator {
             current = getCookieAmountForPerson(username.trim());
         } catch (UserNotFoundException e) {
             System.out.println(username.trim() + " was not found in the database. Check the spelling and try again");
+            initPersonInDatabase(username);
             return false;
         }
         if (current - delta < 0){

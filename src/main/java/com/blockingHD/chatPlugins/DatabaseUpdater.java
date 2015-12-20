@@ -12,17 +12,21 @@ import org.pircbotx.hooks.events.MessageEvent;
 public class DatabaseUpdater extends ListenerAdapter<PircBotX>{
 
     @Override
-    public void onMessage(MessageEvent<PircBotX> event) throws Exception {
+    public void onMessage(MessageEvent<PircBotX> event) {
         String urlPart = event.getChannel().getName().replace("#","").toLowerCase().trim();
-        for (String s : JSONManipulator.getChatters("http://tmi.twitch.tv/group/user/"+ urlPart+ "/chatters")){
-            if (!CookieBotMain.CDBM.isPersonAlreadyInDatabase(s)){
-                CookieBotMain.CDBM.initPersonInDatabase(s);
+        try {
+            for (String s : JSONManipulator.getChatters("http://tmi.twitch.tv/group/user/"+ urlPart+ "/chatters")){
+                if (!CookieBotMain.CDBM.isPersonAlreadyInDatabase(s)){
+                    CookieBotMain.CDBM.initPersonInDatabase(s);
+                }
             }
-        }
-        for (String p: JSONManipulator.getModerators("http://tmi.twitch.tv/group/user/"+ urlPart+ "/chatters")){
-            if (CookieBotMain.CDBM.isPersonAlreadyInDatabase(p)){
-                CookieBotMain.CDBM.updateModStatus(p, true);
+            for (String p: JSONManipulator.getModerators("http://tmi.twitch.tv/group/user/"+ urlPart+ "/chatters")){
+                if (CookieBotMain.CDBM.isPersonAlreadyInDatabase(p)){
+                    CookieBotMain.CDBM.updateModStatus(p, true);
+                }
             }
+        } catch (NullPointerException e) {
+            // No action since it should not be handled in any particular way
         }
     }
 }

@@ -1,3 +1,4 @@
+/src/main/resources/cookieBotProperties
 /src/main/resources/databaseCookies.sqlite
 
 *.iml
@@ -6,3 +7,4 @@
 /test/
 oauthcode.txt
 .idea/
+src/main/resources/notepad

@@ -3,6 +3,7 @@ package com.blockingHD.commands;
 import com.blockingHD.CookieBotMain;
 import com.blockingHD.dao.CookieKeeper;
 import com.blockingHD.exceptions.OutOfCookieException;
+import org.apache.commons.lang3.text.WordUtils;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import java.util.HashMap;
@@ -56,6 +57,7 @@ public class CookiesCommand implements Command {
                 if (CookieBotMain.CDBM.getCookieAmountForPerson(sender) >= amount){
                     CookieBotMain.CDBM.takeCookiesFromUser(sender,amount);
                     CookieBotMain.CDBM.addCookiesToUser(receiver,amount);
+                    event.getChannel().send().message(WordUtils.capitalize(sender) + " has gifted " + amount + " cookies to " + WordUtils.capitalize(receiver));
                 }
             }
         }

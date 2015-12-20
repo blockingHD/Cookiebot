@@ -18,14 +18,16 @@ public class GuessModule {
 
     Set<String> users = new HashSet<>();
 
+    static GuessModule instance;
+
     public GuessModule() {
         magicNumber = rand.nextInt(maxGuess);
         guessNotFound = true;
+        instance = this;
     }
 
     public boolean checkGuess(int userGuess, String user){
         if (guessNotFound && userGuess == magicNumber && !users.contains(user)){
-            resetGuess();
             guessNotFound = false;
             return true;
         }
@@ -35,6 +37,7 @@ public class GuessModule {
     public boolean resetGuess(){
         magicNumber = rand.nextInt(maxGuess);
         users.clear();
+        guessNotFound = true;
         return true;
     }
 

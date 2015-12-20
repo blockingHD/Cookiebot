@@ -1,10 +1,10 @@
 package com.blockingHD.chatPlugins;
 
 import com.blockingHD.CookieBotMain;
+import com.blockingHD.utils.CookieTimer;
 import com.blockingHD.utils.JSONManipulator;
 
 import java.util.ArrayList;
-import java.util.Timer;
 import java.util.TimerTask;
 
 /**
@@ -15,14 +15,12 @@ public class CookieGiver2 {
     int timeBetweenCookieGiveAway = Integer.parseInt(CookieBotMain.prop.getProperty("timeBetweenCookieGiveaway"));
     int cookiesGivenOut = Integer.parseInt(CookieBotMain.prop.getProperty("cookiesGivenOut"));
 
-    Timer checker = new Timer();
-    Timer giver = new Timer();
-    boolean giverOn;
+    CookieTimer checker = new CookieTimer();
+    CookieTimer giver = new CookieTimer();
     int counter;
 
     public CookieGiver2() {
         setTimer();
-
     }
 
     private void setTimer(){
@@ -30,7 +28,8 @@ public class CookieGiver2 {
             @Override
             public void run() {
                 boolean live = JSONManipulator.isStreamLive("https://api.twitch.tv/kraken/streams/loneztar");
-                if (live && !giverOn){
+                System.out.println("Live: "+ live + " TimerStatus of giver: " + giver.isOn());
+                if (live && !giver.isOn()){
                     try {
                         giver.scheduleAtFixedRate(new TimerTask() {
                             @Override
@@ -44,16 +43,17 @@ public class CookieGiver2 {
                         }, 0 ,timeBetweenCookieGiveAway);
 
                     }catch (Exception e){
+                        e.printStackTrace();
                         // Because suspicion that whenever something goes wrong the timer stops.
-                        checker.cancel();
-                        giver.cancel();
-                        giverOn=false;
+                        checker.purge();
+                        giver.purge();
+                        giver.setOn(false);
                         setTimer();
                     }
-                    giverOn = true;
-                } else if (!live && giverOn){
-                    giver.cancel();
-                    giverOn = false;
+                    giver.setOn(true);
+                } else if (!live && giver.isOn()){
+                    giver.purge();
+                    giver.setOn(false);
                 }
             }
             // 3 secs ==> 30 secs
