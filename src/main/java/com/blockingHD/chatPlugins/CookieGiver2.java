@@ -6,10 +6,7 @@ import com.blockingHD.utils.JSONManipulator;
 
 import java.util.ArrayList;
 import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * Created by MrKickkiller on 17/12/2015.
@@ -24,14 +21,15 @@ public class CookieGiver2 {
     int counter;
 
     public CookieGiver2() {
-        setTimer();
+        //setTimer();
+        jezzaShedule();
     }
 
     private void setTimer(){
         checker.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                boolean live = JSONManipulator.isStreamLive("https://api.twitch.tv/kraken/streams/loneztar");
+                boolean live = JSONManipulator.isStreamLive("https://api.twitch.tv/kraken/streams/mrkickkiller");
                 System.out.println("Live: "+ live + " TimerStatus of giver: " + giver.isOn());
                 if (live && !giver.isOn()){
                     try {
@@ -76,8 +74,9 @@ public class CookieGiver2 {
         ex.scheduleAtFixedRate(() -> {
             // Returns if stream is live.
             boolean live = JSONManipulator.isStreamLive("https://api.twitch.tv/kraken/streams/loneztar");
+            System.out.println("Live: "+ live + " TimerStatus of giver: " + giver2);
             // Giver2 (cookie) is no longer working && Stream is live
-            if (live && giver2 != null && (giver2 == null ||giver2.isDone() || giver2.isCancelled())){
+            if (live && (giver2 == null || giver2.isDone() || giver2.isCancelled())){
                 giver2 =  cex.scheduleAtFixedRate(() -> {
                     ArrayList<String> coll = JSONManipulator.getChatters("http://tmi.twitch.tv/group/user/"+ "loneztar" + "/chatters");
                     CookieBotMain.CDBM.addCookiesToAllCurrentViewers(coll, cookiesGivenOut);

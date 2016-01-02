@@ -14,6 +14,7 @@ import java.util.TimerTask;
 /**
  * Created by MrKickkiller on 6/10/2015
  */
+@Deprecated
 public class CookieGiver extends ListenerAdapter<PircBotX> {
 
     Timer t = new Timer();
