@@ -20,9 +20,12 @@ public class GuessCommand implements Command {
 
     int wonCookies = 20;
 
+    String currency = CookieBotMain.langOptions.getProperty("mainCurrency");
+    String Storage = CookieBotMain.langOptions.getProperty("guessStorage");
+
     public GuessCommand() {
         subCommandHashMap.put("reset", new ResetSubCommand());
-        subCommandHashMap.put("cookies", new ShowSubCommand());
+        subCommandHashMap.put(currency, new ShowSubCommand());
     }
 
     @Override
@@ -35,17 +38,17 @@ public class GuessCommand implements Command {
         else if (guessMatcher.matcher(args[1]).matches()){
             int guess = Integer.parseInt(args[1]);
             if (guess > module.getMaxGuess()){
-                event.respond("Max number of cookies is " + module.getMaxGuess());
+                event.respond(String.format("Max number of %s is ", currency) + module.getMaxGuess());
             }else {
                 String username = event.getUser().getNick().trim().toLowerCase();
                 // Found correct amount
                 if (module.checkGuess(guess,username)){
-                    event.getChannel().send().message(username + " has guessed the correct amount of cookies in the jar!");
+                    event.getChannel().send().message(username + String.format(" has guessed the correct amount of %s in the %s!", currency, Storage));
                     CookieBotMain.CDBM.addCookiesToUser(username,20);
                 }else {
                     // Incorrect guess
                     if (!module.isStillRunning()) {
-                        event.respond("The cookies have been found");
+                        event.respond(String.format("The %s have been found", currency));
                     } else if (module.getMagicNumber() != guess){
                         if (module.addUser(username)){
                             event.respond("Incorrect guess");
@@ -79,7 +82,7 @@ public class GuessCommand implements Command {
             String username = event.getUser().getNick().trim().toLowerCase();
 
             if (CookieBotMain.CDBM.isPersonAlreadyInDatabase(username) && CookieBotMain.CDBM.getModStatusForPerson(username)){
-                event.getChannel().send().message("The amount of cookies in the jar were " + module.getMagicNumber());
+                event.getChannel().send().message(String.format("The amount of %s in the %s were ", currency, Storage) + module.getMagicNumber());
                 module.resetGuess();
             }
         }

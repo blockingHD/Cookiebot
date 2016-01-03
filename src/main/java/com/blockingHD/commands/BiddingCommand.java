@@ -15,6 +15,8 @@ public class BiddingCommand implements Command {
 
     BiddingModule biddingModule;
 
+    String currency = CookieBotMain.langOptions.getProperty("mainCurrency");
+
     public BiddingCommand(BiddingModule biddingModule) {
         this.biddingModule = biddingModule;
 
@@ -73,7 +75,7 @@ public class BiddingCommand implements Command {
             String username = biddingModule.getTopBidderName();
             int amount = biddingModule.getTopBidAmount();
             if (biddingModule.executeBid()){
-                event.getChannel().send().message("Congrats " + username + "! You won with your bid of " + amount + " cookies");
+                event.getChannel().send().message("Congrats " + username + "! You won with your bid of " + amount + String.format(" %s", currency));
             }
         }
     }

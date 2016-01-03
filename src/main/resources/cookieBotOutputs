@@ -1,0 +1,17 @@
+# CookieBot output file.
+
+# CookieBot
+# Created by BlockingHD and MrKickkiller
+#
+#
+
+#Currency
+
+#This is the command name as well for looking up currency
+mainCurrency=Cookies
+
+#What is your currency stored in?
+storage=secret stash
+
+#What do the viewers have to guess the amount of your currency is in? example - {cookies = cookie jar}
+guessStorage=cookie jar

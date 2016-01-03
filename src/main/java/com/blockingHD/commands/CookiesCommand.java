@@ -14,6 +14,9 @@ import java.util.regex.Pattern;
  */
 public class CookiesCommand implements Command {
 
+    String currency = CookieBotMain.langOptions.getProperty("mainCurrency");
+    String storage = CookieBotMain.langOptions.getProperty("storage");
+
     Pattern userMatcher = Pattern.compile("[^_][A-z0-9_]*");
 
     HashMap<String, Command> subCommandHashMap = new HashMap<>();
@@ -29,7 +32,7 @@ public class CookiesCommand implements Command {
     public void execute(MessageEvent event, String[] args) throws Exception {
         if (args.length > 1){
             if (subCommandHashMap.containsKey(args[1]) && args.length == 2){
-                event.respond("Invalid Cookie-Command. Usage: !cookies < | give | take | add> <Username> <Amount >= 0>");
+                event.respond(String.format("Invalid %s-Command. Usage: !%s < | give | take | add> <Username> <Amount >= 0>", currency, currency));
             }
             if (subCommandHashMap.containsKey(args[1]) && args.length > 2){
                 subCommandHashMap.get(args[1].toLowerCase()).execute(event,args);
@@ -37,12 +40,12 @@ public class CookiesCommand implements Command {
             else if (userMatcher.matcher(args[1].trim().toLowerCase()).matches()){
                 // Secondary name was given
                 String amount = ck.getAmountOfCookies(args[1].trim().toLowerCase());
-                event.getChannel().send().message(args[1].trim() + " has " + amount + " cookies in their secret stash!");
+                event.getChannel().send().message(args[1].trim() + " has " + amount + String.format(" %s in their %s!", currency, storage));
             }
         }
         else {
             // No secondary name was given.
-            event.getChannel().send().message(event.getUser().getNick().trim() + " has " + ck.getAmountOfCookies(event.getUser().getNick().trim()) + " cookies in their secret stash");
+            event.getChannel().send().message(event.getUser().getNick().trim() + " has " + ck.getAmountOfCookies(event.getUser().getNick().trim()) + String.format(" %s in there %s", currency, storage));
         }
     }
 
@@ -57,7 +60,7 @@ public class CookiesCommand implements Command {
                 if (CookieBotMain.CDBM.getCookieAmountForPerson(sender) >= amount){
                     CookieBotMain.CDBM.takeCookiesFromUser(sender,amount);
                     CookieBotMain.CDBM.addCookiesToUser(receiver,amount);
-                    event.getChannel().send().message(WordUtils.capitalize(sender) + " has gifted " + amount + " cookies to " + WordUtils.capitalize(receiver));
+                    event.getChannel().send().message(WordUtils.capitalize(sender) + " has gifted " + amount + String.format(" %s to ", currency) + WordUtils.capitalize(receiver));
                 }
             }
         }

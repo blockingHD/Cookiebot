@@ -23,6 +23,7 @@ import static com.blockingHD.Referance.*;
 public class CookieBotMain {
 
     public static final Properties prop = new Properties();
+    public static final Properties langOptions = new Properties();
 
     static {
         loadProperties();
@@ -72,14 +73,25 @@ public class CookieBotMain {
 
     public static void loadProperties(){
         System.out.println("Loading properties");
-        String url = "cookieBotProperties";
-        if (devModeOn){
+        String[] listURL = {"cookieBotProperties", "cookieBotOutputs"};
+        String url;
+        String url2;
+        if (devModeOn) {
             System.out.println("Devmode on");
-            url = "src/main/resources/" + url;
+            url = "src/main/resources/" + listURL[0];
+            url2 = "src/main/resources/" + listURL[1];
         }
 
-        try (InputStream inputStream = new FileInputStream(url)){
+        try (InputStream inputStream = new FileInputStream(url)) {
             prop.load(inputStream);
+            System.out.println("Properties file:" + listURL[0] + "has loaded");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try (InputStream inputStream = new FileInputStream(url2)) {
+            langOptions.load(inputStream);
+            System.out.println("Properties file: " + listURL[1] + " has loaded");
         } catch (IOException e) {
             e.printStackTrace();
         }
