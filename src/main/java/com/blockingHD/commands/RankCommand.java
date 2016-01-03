@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  */
 public class RankCommand implements Command{
 
-    static TreeMap<Integer,String> map = new TreeMap<>();
+    TreeMap<Integer,String> map = new TreeMap<>();
 
     boolean enabled = Boolean.parseBoolean(CookieBotMain.prop.getProperty("ranksEnabled"));
 

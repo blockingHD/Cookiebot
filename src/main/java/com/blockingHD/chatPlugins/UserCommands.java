@@ -19,9 +19,6 @@ public class UserCommands extends ListenerAdapter<PircBotX> {
 
     boolean enabled = Boolean.parseBoolean(CookieBotMain.prop.getProperty("userCommandsEnabled"));
 
-
-    //TODO: add commands and returns to props file.
-    
     @Override
     public void onMessage(MessageEvent<PircBotX> event) throws Exception {
         long time = System.nanoTime();
