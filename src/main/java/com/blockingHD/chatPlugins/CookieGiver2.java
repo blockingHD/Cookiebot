@@ -1,6 +1,7 @@
 package com.blockingHD.chatPlugins;
 
 import com.blockingHD.CookieBotMain;
+import com.blockingHD.Referance;
 import com.blockingHD.utils.CookieTimer;
 import com.blockingHD.utils.JSONManipulator;
 
@@ -14,6 +15,7 @@ public class CookieGiver2 {
 
     int timeBetweenCookieGiveAway = Integer.parseInt(CookieBotMain.prop.getProperty("timeBetweenCookieGiveaway"));
     int cookiesGivenOut = Integer.parseInt(CookieBotMain.prop.getProperty("cookiesGivenOut"));
+    String channelName = Referance.CHAN;
 
     CookieTimer checker = new CookieTimer();
     CookieTimer giver = new CookieTimer();
@@ -27,14 +29,14 @@ public class CookieGiver2 {
         checker.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                boolean live = JSONManipulator.isStreamLive("https://api.twitch.tv/kraken/streams/loneztar");
+                boolean live = JSONManipulator.isStreamLive("https://api.twitch.tv/kraken/streams/" + channelName);
                 System.out.println("Live: "+ live + " TimerStatus of giver: " + giver.isOn());
                 if (live && !giver.isOn()){
                     try {
                         giver.scheduleAtFixedRate(new TimerTask() {
                             @Override
                             public void run() {
-                                ArrayList<String> coll = JSONManipulator.getChatters("http://tmi.twitch.tv/group/user/"+ "loneztar" + "/chatters");
+                                ArrayList<String> coll = JSONManipulator.getChatters("http://tmi.twitch.tv/group/user/"+ channelName + "/chatters");
                                 CookieBotMain.CDBM.addCookiesToAllCurrentViewers(coll, cookiesGivenOut);
                                 if (coll != null){
                                     counter += coll.size();

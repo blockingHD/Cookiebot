@@ -2,6 +2,9 @@
 /src/main/resources/databaseCookies.sqlite
 
 *.iml
+/.gitignore
+/src/test
+/out
 /target
 /src/main/java/com/blockingHD/Referance.java
 /test/

@@ -1,5 +1,6 @@
 package com.blockingHD.commands;
 
+import com.blockingHD.CookieBotMain;
 import com.blockingHD.chatPlugins.BiddingModule;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
@@ -14,8 +15,10 @@ public class CommandHandler extends ListenerAdapter<PircBotX> {
 
     private HashMap<String, Command> stringCommandHashMap = new HashMap<>();
 
+    String currency = CookieBotMain.langOptions.getProperty("mainCurrency");
+
     public CommandHandler() {
-        stringCommandHashMap.put("!cookies", new CookiesCommand());
+        stringCommandHashMap.put("!" + currency.toLowerCase(), new CookiesCommand());
         stringCommandHashMap.put("!hi", new HelloCommand());
         stringCommandHashMap.put("!calc", new CalculatorCommand());
         stringCommandHashMap.put("!mod", new ModCommand());
